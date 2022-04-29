@@ -17,51 +17,45 @@ gulp.task("tinypng", () => {
     .pipe(gulp.dest("./dist/images"));
 });
 gulp.task("buildStyles", function () {
-  return gulp
-    .src("./src/scss/style.scss")
-    .pipe(sass().on("error", sass.logError))
-    .pipe(
-      autoprefixer({
-        overrideBrowserList: ["last 2 versions"],
-        cascade: false,
-      })
-    )
-    .pipe(
-      purgecss({
-        content: ["*.html"],
-      })
-    )
-    .pipe(rename("style.min.css"))
-    .pipe(cleanCSS({ compatibility: "ie8" }))
-    .pipe(gulp.dest("./dist/css/"));
+  return (
+    gulp
+      .src("./src/scss/styles.scss")
+      .pipe(sass().on("error", sass.logError))
+      .pipe(
+        autoprefixer({
+          overrideBrowserList: ["last 2 versions"],
+          cascade: false,
+        })
+      )
+      // .pipe(
+      //   purgecss({
+      //     content: ["*.html"],
+      //   })
+      //)
+      .pipe(rename("style.min.css"))
+      .pipe(cleanCSS({ compatibility: "ie8" }))
+      .pipe(gulp.dest("./dist/css/"))
+  );
 });
 gulp.task("clean", function () {
   return gulp.src("./dist/*", { read: false }).pipe(clean());
 });
-gulp.task("concatJS", function () {
+gulp.task("buildJS", function () {
   return gulp
     .src(["./src/js/*.js"])
     .pipe(concat("main.js"))
-    .pipe(gulp.dest("./src/js/concat/"));
-});
-gulp.task("minify-js", function () {
-  return gulp
-    .src("./src/js/concat/main.js")
     .pipe(minifyjs())
     .pipe(rename("scripts.min.js"))
     .pipe(gulp.dest("./dist/js"));
 });
 
-gulp.task(
-  "build",
-  gulp.series(["clean", "buildStyles", "concatJS", "minify-js", "tinypng"])
-);
+gulp.task("build", gulp.series(["clean", "buildJS", "buildStyles", "tinypng"]));
 gulp.task("dev", () => {
   browserSync.init({
     server: "./",
   });
   gulp.watch("./src/scss/**/**.scss", gulp.series("buildStyles"));
-  gulp.watch("./src/js/index.js", gulp.series("concatJS", "minify-js"));
+  gulp.watch("./src/js/**/**.js", gulp.series("buildJS"));
   gulp.watch("./index.html").on("change", browserSync.reload);
   gulp.watch("./dist/css/style.min.css").on("change", browserSync.reload);
   gulp.watch("./dist/js/scripts.min.js").on("change", browserSync.reload);
