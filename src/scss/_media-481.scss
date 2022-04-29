@@ -1,0 +1,21 @@
+@media screen and (min-width: 481px) {
+  @import "variables";
+  @import "mixins";
+
+  //--------------------HEADER--------------------//
+  .header-container {
+    margin: 0 auto;
+    @include flex;
+    align-items: center;
+    &__logo {
+      text-align: center;
+      flex: 1;
+    }
+    &__btn {
+      flex: 1;
+      .btn {
+        max-width: 400px;
+      }
+    }
+  }
+}

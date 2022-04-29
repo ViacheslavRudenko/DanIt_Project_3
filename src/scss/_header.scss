@@ -1,0 +1,15 @@
+@import "variables";
+@import "mixins";
+
+.header {
+  background-color: #313131;
+}
+.header-container {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  &__logo {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
