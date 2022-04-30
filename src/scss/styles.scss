@@ -6,22 +6,27 @@ body {
   min-width: 320px;
 }
 
-.section {
+.main {
+  background-image: url(../images/doctor-with-medical-mask-background-vector.jpeg);
+  @include img-position;
+  height: 100vh; //тимчасово
+}
+.section-width {
   max-width: $container-max-widths;
+}
+.section {
+  background-color: whitesmoke;
+  height: 100vh;
+  box-shadow: 0px 0px 12px 2px #313131;
   margin: 0 auto;
   box-sizing: border-box;
   font-family: $fontLato;
-}
-.section:not(:first-child) {
-  background: #f8f9fd;
-}
-.main {
-  height: 100vh; // тимчасово
-  box-shadow: 0px 0px 12px 2px #313131;
+  padding: 20px;
 }
 
 @import "buttons";
 @import "header";
 @import "form";
+@import "formLogIn";
 @import "media-481";
 @import "media-993";
