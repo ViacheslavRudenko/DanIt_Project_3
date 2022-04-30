@@ -11,12 +11,12 @@
   box-sizing: border-box;
 
   &:hover {
-    color: rgb(1.998901%, 62.69989%, 72.898865%);
+    color: $mainColor;
   }
 
   &:active {
     box-sizing: border-box;
-    border: 2px solid rgb(1.998901%, 62.69989%, 72.898865%);
+    border: 2px solid $mainColor;
     box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1),
       inset 0 1px 2px rgba(0, 0, 0, 0.3),
       inset 0 0 0 60px rgba(68, 49, 69, 0.45);

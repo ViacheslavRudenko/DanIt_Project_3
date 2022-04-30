@@ -1,16 +1,12 @@
 .form-box {
-  position: absolute;
-  top: 50%;
-  bottom: 50%;
-
   min-width: 300px;
+  display: block;
   &__item {
-    position: relative;
+    padding: 10px;
   }
   &__close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    text-align: end;
+    padding: 10px;
     &__btn {
       background-color: transparent;
       border: none;

@@ -1,3 +1,7 @@
+const body = document.querySelector("body");
+const mainBox = document.querySelector(".main-content");
+const btnLogIn = document.querySelector(".header-container__btn .btn");
+
 class Component {
   constructor(parentElement, position) {
     this.parentElement = parentElement;
@@ -43,30 +47,24 @@ class Component {
     return this.element;
   }
 }
-const body = document.querySelector("body");
 
 class Form extends Component {
-  createForm = () =>
-    (this.formBox = this.createElement({
-      tagName: "div",
-      classNames: ["form-box", "row", "flex", "justify-content-center"],
-      parentElement: body,
-      position: "prepend",
-    }));
-
-  createFormItem = () =>
-    (this.formBoxItem = this.createElement({
-      tagName: "div",
-      classNames: [
-        "form-box__item",
-        "card-body",
-        "p-5",
-        "text-center",
-        "card",
-        "shadow-2-strong",
-      ],
-      parentElement: this.formBox,
-    }));
+  createForm = () => {
+    this.position = "beforeend";
+    this.parentElement = body;
+    this.createElement(` <div
+                          class="modal fade show form-box"
+                          tabindex="-1"
+                          role="dialog"
+                          aria-labelledby="exampleModalLabel">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content form-box__item"></div>
+                          </div>
+                        </div>`);
+    this.formBoxItem = document.querySelector(".form-box__item");
+    body.style.overflow = "hidden";
+    return this.formBoxItem;
+  };
 
   createFormClose = () =>
     (this.btnClose = this.createElement({
@@ -91,31 +89,139 @@ class Form extends Component {
       content: "Вход",
     }));
 
+  getFormClose() {
+    const btnClose = document.querySelector(".form-box__close__btn");
+    btnClose.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.getFormCloseAction();
+    });
+  }
+
+  getFormCloseAction() {
+    this.formBox = document.querySelector(".form-box");
+    this.formBox.remove();
+    body.style.overflow = "visible";
+  }
+
+  createInputBox = () =>
+    (this.inputBox = this.createElement({
+      tagName: "div",
+      classNames: ["form-data"],
+      parentElement: this.formBoxItem,
+    }));
+
   renderDefaultForm() {
     this.createForm();
-    this.createFormItem();
     this.createFormClose();
     this.createFormCloseBtn();
+    this.createInputBox();
     this.createFormSubmit();
+    this.getFormClose();
   }
 }
 
-const form = new Form();
+class LogInForm extends Form {
+  createInputEmail = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputLogin = this.createElement(
+      `<div class="forms-inputs mb-4">
+      <span>Email or username</span>
+      <input
+        autocomplete="off"
+        type="text"
+        v-model="login"
+        v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(login) && emailBlured}"
+        v-on:blur="loginBlured = true"
+      />
+      <div class="invalid-feedback">A valid login is required!</div>
+    </div>`
+    );
+    return this.formInputLogin;
+  };
 
-const btnLogIn = document.querySelector(".header-container__btn .btn");
+  createInputPassword = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputPassword = this.createElement(
+      `<div class="forms-inputs mb-4">
+      <span>Password</span>
+      <input
+        autocomplete="off"
+        type="password"
+        v-model="password"
+        v-bind:class="{'form-control':true, 'is-invalid' : !validPassword(password) && passwordBlured}"
+        v-on:blur="passwordBlured = true"
+      />
+      <div class="invalid-feedback">Password must be 8 character!</div>
+    </div>
+    <div class="invalid-data invalid-feedback">Invalid login or password!</div>`
+    );
+    return this.formInputPassword;
+  };
+
+  checkInput() {
+    this.formSubmit.addEventListener("click", (e) => {
+      e.preventDefault();
+      const login = this.formBoxItem.querySelector(`input[v-model="login"]`);
+      const password = this.formBoxItem.querySelector(
+        `input[v-model="password"]`
+      );
+      const isLoginValid = login.value.length <= 6;
+      const isPasswordValid = password.value.length < 8;
+      this.checkValue(isLoginValid, login);
+      this.checkValue(isPasswordValid, password);
+      this.isData = this.checkValidData(login, password);
+      if (this.dataValue) {
+        btnLogIn.remove();
+        mainBox.innerHTML = "No items have been added";
+      }
+    });
+  }
+
+  checkValue(flag, el) {
+    this.errElem = el.parentNode.querySelector(`.invalid-feedback`);
+    if (flag) {
+      this.errElem.style.display = "block";
+    } else {
+      this.errElem.style.display = "none";
+      return true;
+    }
+  }
+
+  checkValidData(login, password) {
+    passObj.forEach((e) => {
+      if (e.login === login.value && e.password === password.value) {
+        this.getFormCloseAction();
+        this.dataValue = true;
+        return this.dataValue;
+      } else {
+        this.errElem =
+          this.formBoxItem.parentNode.querySelector(`.invalid-data`);
+        this.errElem.style.display = "block";
+      }
+      return true;
+    });
+  }
+
+  render() {
+    this.renderDefaultForm();
+    this.createInputEmail();
+    this.createInputPassword();
+    this.checkInput();
+  }
+}
+
+let passObj = [
+  { login: "admin@gmail.com", password: "qwerty123" },
+  { login: "user@gmail.com", password: "12345678" },
+  { login: "moderator@gmail.com", password: "87654321" },
+  { login: "admin", password: "qwerty123" },
+];
+
+const logIn = new LogInForm();
+
 btnLogIn.addEventListener("click", (e) => {
   e.preventDefault();
-  form.renderDefaultForm();
+  logIn.render();
 });
-
-//Приклад об'єкта для створення елементу
-// const body = document.querySelector("body");
-// const objForCreationElem = {
-//   tagName: "div",
-//   classNames: ["sad", "asdasd"],
-//   parentElement: body,
-//   content: "asdas",
-//   values: "",
-//   key: "",
-//   position: "append",
-// };
