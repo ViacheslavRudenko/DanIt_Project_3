@@ -1,6 +1,7 @@
 const body = document.querySelector("body");
 const mainBox = document.querySelector(".main-content");
 const btnLogIn = document.querySelector(".header-container__btn .btn");
+const btnCreatVisit = document.querySelector(".creat-visit-btn");
 
 // клас Component, для створення елементів
 
@@ -116,13 +117,13 @@ class Form extends Component {
       content: "X",
     }));
 
-  createFormSubmit = () =>
-    (this.formSubmit = this.createElement({
-      tagName: "button",
-      classNames: ["form-box__submit", "btn"],
-      parentElement: this.formBoxItem,
-      content: "Вход",
-    }));
+  // createFormSubmit = () =>
+  //   (this.formSubmit = this.createElement({
+  //     tagName: "button",
+  //     classNames: ["form-box__submit", "btn"],
+  //     parentElement: this.formBoxItem,
+  //     content: "Вход",
+  //   }));
 
   getFormClose() {
     const btnClose = document.querySelector(".form-box__close__btn");
@@ -150,7 +151,7 @@ class Form extends Component {
     this.createFormClose();
     this.createFormCloseBtn();
     this.createInputBox();
-    this.createFormSubmit();
+    // this.createFormSubmit();
     this.getFormClose();
   }
 }
@@ -174,6 +175,14 @@ class LogInForm extends Form {
     );
     return this.formInputLogin;
   };
+
+  createFormSubmit = () =>
+    (this.formSubmit = this.createElement({
+      tagName: "button",
+      classNames: ["form-box__submit", "btn"],
+      parentElement: this.formBoxItem,
+      content: "Вход",
+    }));
 
   createInputPassword = () => {
     this.position = "beforeend";
@@ -209,6 +218,7 @@ class LogInForm extends Form {
       this.isData = this.checkValidData(login, password);
       if (this.dataValue) {
         btnLogIn.remove();
+        btnCreatVisit.style.display = "block";
         mainBox.innerHTML = "No items have been added";
       }
     });
@@ -241,6 +251,7 @@ class LogInForm extends Form {
 
   render() {
     this.renderDefaultForm();
+    this.createFormSubmit();
     this.createInputEmail();
     this.createInputPassword();
     this.checkInput();
@@ -259,4 +270,241 @@ const logIn = new LogInForm();
 btnLogIn.addEventListener("click", (e) => {
   e.preventDefault();
   logIn.render();
+});
+
+//------------- visit modal ------------------
+class VisitForm extends Form {
+  createDoctorsSelect = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputDoctors = this.createElement(
+      `<div class="forms-inputs mb-4">
+        <div class="items-doctors">Выберите врача:</div>
+        <ul class="select-list-doctors">
+          <a class="select-list-doctors__link" href="#"><li class="cardio-doctor">Кардиолог</li></a>
+          <a class="select-list-doctors__link" href="#"><li class="dentist">Стоматолог</li></a>
+          <a class="select-list-doctors__link" href="#"><li class="therapist">Терапевт</li></a>
+        </ul>
+      </div>`
+    );
+    return this.formInputDoctors;
+  };
+
+  createVisitSubmit = () =>
+    (this.formSubmit = this.createElement({
+      tagName: "button",
+      classNames: ["form-box__submit", "creat-visit", "btn"],
+      parentElement: this.formBoxItem,
+      content: "Создать",
+    }));
+
+  createInputPurpose = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputPurpose = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item purpose-input"
+            placeholder="Цель визита"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputPassword;
+  };
+
+  createInputDescription = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputDescription = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item description-visit-input"
+            placeholder="Описание визита"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputDescription;
+  };
+
+  createInputName = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputName = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item name-input"
+            placeholder="ФИО"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputName;
+  };
+
+  render() {
+    this.renderDefaultForm();
+
+    this.createDoctorsSelect();
+  }
+}
+
+class CardioVisitForm extends VisitForm {
+  createInputPressure = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputPressure = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item pressure-input"
+            placeholder="Обычное давление"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputPressure;
+  };
+
+  createInputDiseases = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputDiseases = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item diseases-input"
+            placeholder="Перенесенные заболевания"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputDiseases;
+  };
+
+  createInputAge = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputAge = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item diseases-input"
+            placeholder="Возраст"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputAge;
+  };
+
+  render() {
+    this.renderDefaultForm();
+    this.createInputPurpose();
+    this.createInputDescription();
+    this.createInputName();
+    this.createInputPressure();
+    this.createInputDiseases();
+    this.createInputAge();
+    this.createVisitSubmit();
+  }
+}
+
+class DentistVisitForm extends VisitForm {
+  createInputLastVisit = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputLastVisit = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item diseases-input"
+            placeholder="Дата последнего визита"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputLastVisit;
+  };
+
+  render() {
+    this.renderDefaultForm();
+    this.createInputPurpose();
+    this.createInputDescription();
+    this.createInputName();
+    this.createInputLastVisit();
+    this.createVisitSubmit();
+  }
+}
+
+class TherapistVisitForm extends VisitForm {
+  createInputAge = () => {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.formInputAge = this.createElement(
+      `<div class="forms-inputs mb-4">
+          <input class="forms-inputs__item diseases-input"
+            placeholder="Возраст"
+            autocomplete="off"
+            type="text"
+          />
+        </div>`
+    );
+    return this.formInputAge;
+  };
+
+  render() {
+    this.renderDefaultForm();
+    this.createInputPurpose();
+    this.createInputDescription();
+    this.createInputName();
+    this.createInputAge();
+    this.createVisitSubmit();
+  }
+}
+
+btnCreatVisit.addEventListener("click", () => {
+  btnCreatVisit.disabled = true;
+  const doctorsBox = document.createElement("div");
+  doctorsBox.classList.add("doctors-box");
+  doctorsBox.innerHTML = `<div class="items-doctors">Выберите врача</div>
+  <ul class="select-list-doctors">
+    <a class="select-list-doctors__link" href="#"><li class="cardio-doctor">Кардиолог</li></a>
+    <a class="select-list-doctors__link" href="#"><li class="dentist">Стоматолог</li></a>
+    <a class="select-list-doctors__link" href="#"><li class="therapist">Терапевт</li></a>
+  </ul>`;
+  mainBox.append(doctorsBox);
+
+  const doctors = document.querySelector(".items-doctors");
+
+  const selectDoctorsList = document.querySelector(".select-list-doctors");
+  doctors.addEventListener("click", () => {
+    if (doctors.classList.contains("menu") == false) {
+      doctors.classList.add("menu");
+      selectDoctorsList.style.display = "block";
+    } else {
+      doctors.classList.remove("menu");
+      selectDoctorsList.style.display = "none";
+    }
+  });
+
+  selectDoctorsList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("cardio-doctor")) {
+      selectDoctorsList.style.display = "none";
+      doctors.classList.remove("menu");
+      const cardioVisitModal = new CardioVisitForm();
+      cardioVisitModal.render();
+    } else if (e.target.classList.contains("dentist")) {
+      selectDoctorsList.style.display = "none";
+      doctors.classList.remove("menu");
+      const dentistVisitModal = new DentistVisitForm();
+      dentistVisitModal.render();
+    } else if (e.target.classList.contains("therapist")) {
+      selectDoctorsList.style.display = "none";
+      doctors.classList.remove("menu");
+      const therapistVisitModal = new TherapistVisitForm();
+      therapistVisitModal.render();
+    }
+    // const creatVisitBtn = document.querySelector(".creat-visit");
+    // creatVisitBtn.addEventListener('click', ()=> {
+
+    // })
+  });
 });
