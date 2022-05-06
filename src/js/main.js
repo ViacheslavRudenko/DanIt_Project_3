@@ -3,7 +3,39 @@ const mainBox = document.querySelector(".main-content");
 const btnLogIn = document.querySelector(".header-container__btn .btn");
 const btnCreatVisit = document.querySelector(".creat-visit-btn");
 
-export class Component {
+// клас Component, для створення елементів
+
+// Перший стпосіб:
+//this.position = "beforeend";
+// this.parentElement = body;
+// this.createElement(` <div class="modal fade show form-box" </div>`);
+
+// Другий спосіб: (можна пропустити якусь властивість)
+// this.formSubmit = this.createElement({
+//   tagName: "button",
+//   classNames: ["form-box__submit", "btn"],
+//   parentElement: this.formBoxItem,
+//   content: "Вход",
+//   key: data-id,
+//   value: 1, //data-id
+//   position: "prepend"
+// })
+
+/*
+Component. Все элементы страницы по сути являются её компонентами (составляющими): будь то форма, отдельные элементы формы, модальные окна и так далее. Component - это главный класс, который представляет компонент. У этого класса могут существовать свойства и методы, которые нужны всем дочерним классам (своего рода "глобальные"). В частности может существовать метод createElement, который принимает в качестве аргумента объект с нужным набором свойств и на базе полученных данных создает HTML-элемент. Объект может содержать разные свойства, например:
+tagName - название тега (какой HTML-элемент надо создать);
+classNames - массив с названиями классов, которые нужно присвоить элементу;
+attributes - объект с набором атрибутов, которые надо присвоить элементу (название атрибута - это key в объекте, значение атрибута - value в объекте);
+content - содержимое элемента. Это может быть как просто текст, так и другой элемент;
+parentElement - если нужно будет сохранять какую-то связь с родительским элементом, то можно иметь и такое свойство.
+
+Либо метод createElement может получать не объект, а HTML-строку.
+
+Количество данных и типы данных - на ваше усмотрение. Идея понятна: метод получает данные и на базе этих данных создает элемент для DOM-дерева. Этот элемент можно вставлять в нужное место страницы. Допустим, можно делать проверку, что если в качестве данных мы получили HTML-строку (typeof arg === 'string'), то использовать для вставки Element.insertAdjacentHTML(), в противном случае обработать полученный объект (всего его свойства, в том числе внутренние объекты) и создать элемент с нужными классами, атрибутами и прочими свойствами.
+
+*/
+
+class Component {
   constructor(parentElement, position) {
     this.parentElement = parentElement;
     this.position = position;
@@ -49,7 +81,10 @@ export class Component {
   }
 }
 
-export class Form extends Component {
+//класс Form - общий класс для всех форм. Он не презентует конкретную форму. Для создания конкретных форм используем дочерние классы. Возьмем с ТЗ по аналогии с Visit и дальше по иерархии. Все также - класс Form может содержать общие свойства и методы для всех форм (например, submitForm), а дочерние - уже более тематические.
+// Він створює модальне вікно, btn - sumbit та btn - close modal
+
+class Form extends Component {
   createForm = () => {
     this.position = "beforeend";
     this.parentElement = body;
@@ -258,7 +293,7 @@ class VisitForm extends Form {
   createVisitSubmit = () =>
     (this.formSubmit = this.createElement({
       tagName: "button",
-      classNames: ["form-box__submit", "btn"],
+      classNames: ["form-box__submit", "creat-visit", "btn"],
       parentElement: this.formBoxItem,
       content: "Создать",
     }));
@@ -277,12 +312,6 @@ class VisitForm extends Form {
     );
     return this.formInputPassword;
   };
-
-  renameBtnVisitModal() {
-    const visitModalBtn = document.querySelector("form-box__submit btn");
-    visitModalBtn.innerText = "Заполнить";
-    console.log(visitModalBtn);
-  }
 
   createInputDescription = () => {
     this.position = "beforeend";
@@ -473,5 +502,9 @@ btnCreatVisit.addEventListener("click", () => {
       const therapistVisitModal = new TherapistVisitForm();
       therapistVisitModal.render();
     }
+    // const creatVisitBtn = document.querySelector(".creat-visit");
+    // creatVisitBtn.addEventListener('click', ()=> {
+
+    // })
   });
 });
