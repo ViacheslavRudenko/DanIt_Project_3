@@ -44,3 +44,14 @@
   top: 30%;
   left: 40%;
 }
+
+.check-inputs-value {
+  padding-bottom: 10px;
+  padding-left: 20px;
+  display: none;
+
+  &__text {
+    font-size: large;
+    color: red;
+  }
+}
