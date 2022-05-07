@@ -527,11 +527,11 @@ btnCreatVisit.addEventListener("click", () => {
         inputsArr.forEach((e) => {
           if (e.value === "") {
             creatError.style.display = "block";
-          }
-        });
-      } else {
+          }else {
         creatError.style.display = "none";
       }
+        });
+      } 
     });
   });
 });
