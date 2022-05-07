@@ -127,6 +127,7 @@ class Form extends Component {
 
   getFormClose() {
     const btnClose = document.querySelector(".form-box__close__btn");
+    this.formBox = document.querySelector(".form-box");
     btnClose.addEventListener("click", (e) => {
       e.preventDefault();
       this.getFormCloseAction();
@@ -343,9 +344,19 @@ class VisitForm extends Form {
     return this.formInputName;
   };
 
+  createCheckInputsValues() {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.checkValuesBox = this.createElement(
+      `<div class="check-inputs-value">
+          <p class="check-inputs-value__text">Заполните все поля</p>
+        </div>`
+    );
+    return this.checkValuesBox;
+  }
+
   render() {
     this.renderDefaultForm();
-
     this.createDoctorsSelect();
   }
 }
@@ -405,6 +416,7 @@ class CardioVisitForm extends VisitForm {
     this.createInputDiseases();
     this.createInputAge();
     this.createVisitSubmit();
+    this.createCheckInputsValues();
   }
 }
 
@@ -431,6 +443,7 @@ class DentistVisitForm extends VisitForm {
     this.createInputName();
     this.createInputLastVisit();
     this.createVisitSubmit();
+    this.createCheckInputsValues();
   }
 }
 
@@ -457,6 +470,7 @@ class TherapistVisitForm extends VisitForm {
     this.createInputName();
     this.createInputAge();
     this.createVisitSubmit();
+    this.createCheckInputsValues();
   }
 }
 
@@ -502,9 +516,22 @@ btnCreatVisit.addEventListener("click", () => {
       const therapistVisitModal = new TherapistVisitForm();
       therapistVisitModal.render();
     }
-    // const creatVisitBtn = document.querySelector(".creat-visit");
-    // creatVisitBtn.addEventListener('click', ()=> {
 
-    // })
+    const modalBox = document.querySelector(".modal-content");
+    modalBox.addEventListener("click", (e) => {
+      const creatVisitBtn = document.querySelector(".creat-visit");
+      const creatError = document.querySelector(".check-inputs-value");
+      const inputsNode = document.querySelectorAll(".forms-inputs__item");
+      if (e.target === creatVisitBtn) {
+        const inputsArr = [...inputsNode];
+        inputsArr.forEach((e) => {
+          if (e.value === "") {
+            creatError.style.display = "block";
+          }
+        });
+      } else {
+        creatError.style.display = "none";
+      }
+    });
   });
 });
