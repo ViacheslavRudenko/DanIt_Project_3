@@ -117,20 +117,17 @@ class Form extends Component {
       content: "X",
     }));
 
-  // createFormSubmit = () =>
-  //   (this.formSubmit = this.createElement({
-  //     tagName: "button",
-  //     classNames: ["form-box__submit", "btn"],
-  //     parentElement: this.formBoxItem,
-  //     content: "Вход",
-  //   }));
-
   getFormClose() {
-    const btnClose = document.querySelector(".form-box__close__btn");
     this.formBox = document.querySelector(".form-box");
-    btnClose.addEventListener("click", (e) => {
+    this.formBox.addEventListener("click", (e) => {
       e.preventDefault();
-      this.getFormCloseAction();
+
+      if (
+        !e.target.closest(".modal-content") ||
+        e.target.closest(".form-box__close__btn")
+      ) {
+        this.getFormCloseAction();
+      }
     });
   }
 
@@ -152,7 +149,6 @@ class Form extends Component {
     this.createFormClose();
     this.createFormCloseBtn();
     this.createInputBox();
-    // this.createFormSubmit();
     this.getFormClose();
   }
 }
@@ -527,11 +523,11 @@ btnCreatVisit.addEventListener("click", () => {
         inputsArr.forEach((e) => {
           if (e.value === "") {
             creatError.style.display = "block";
-          }else {
-        creatError.style.display = "none";
-      }
+          } else {
+            creatError.style.display = "none";
+          }
         });
-      } 
+      }
     });
   });
 });
