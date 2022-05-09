@@ -102,63 +102,60 @@ class Form extends Component {
                             <div class="modal-content form-box__item"></div>
                           </div>
                         </div>`);
-        this.formBoxItem = document.querySelector(".form-box__item");
-        body.style.overflow = "hidden";
-        return this.formBoxItem;
-    };
+    this.formBoxItem = document.querySelector(".form-box__item");
+    body.style.overflow = "hidden";
+    return this.formBoxItem;
+  };
 
-    createFormClose = () =>
-        (this.btnClose = this.createElement({
-            tagName: "div",
-            classNames: "form-box__close",
-            parentElement: this.formBoxItem,
-        }));
+  createFormClose = () =>
+    (this.btnClose = this.createElement({
+      tagName: "div",
+      classNames: "form-box__close",
+      parentElement: this.formBoxItem,
+    }));
 
-    createFormCloseBtn = () =>
-        (this.btnCloseBtn = this.createElement({
-            tagName: "button",
-            classNames: ["form-box__close__btn"],
-            parentElement: this.btnClose,
-            content: "X",
-        }));
+  createFormCloseBtn = () =>
+    (this.btnCloseBtn = this.createElement({
+      tagName: "button",
+      classNames: ["form-box__close__btn"],
+      parentElement: this.btnClose,
+      content: "X",
+    }));
 
-    // createFormSubmit = () =>
-    //   (this.formSubmit = this.createElement({
-    //     tagName: "button",
-    //     classNames: ["form-box__submit", "btn"],
-    //     parentElement: this.formBoxItem,
-    //     content: "Вход",
-    //   }));
+  getFormClose() {
+    this.formBox = document.querySelector(".form-box");
+    this.formBox.addEventListener("click", (e) => {
+      e.preventDefault();
 
-    getFormClose() {
-        const btnClose = document.querySelector(".form-box__close__btn");
-        btnClose.addEventListener("click", (e) => {
-            e.preventDefault();
-            this.getFormCloseAction();
-        });
-    }
+      if (
+        !e.target.closest(".modal-content") ||
+        e.target.closest(".form-box__close__btn")
+      ) {
+        this.getFormCloseAction();
+      }
+    });
+  }
 
-    getFormCloseAction() {
-        this.formBox = document.querySelector(".form-box");
-        this.formBox.remove();
-        body.style.overflow = "visible";
-    }
+  getFormCloseAction() {
+    this.formBox = document.querySelector(".form-box");
+    this.formBox.remove();
+    body.style.overflow = "visible";
+  }
 
-    createInputBox = () =>
-        (this.inputBox = this.createElement({
-            tagName: "div",
-            classNames: ["form-data"],
-            parentElement: this.formBoxItem,
-        }));
+  createInputBox = () =>
+    (this.inputBox = this.createElement({
+      tagName: "div",
+      classNames: ["form-data"],
+      parentElement: this.formBoxItem,
+    }));
 
-    renderDefaultForm() {
-        this.createForm();
-        this.createFormClose();
-        this.createFormCloseBtn();
-        this.createInputBox();
-        // this.createFormSubmit();
-        this.getFormClose();
-    }
+  renderDefaultForm() {
+    this.createForm();
+    this.createFormClose();
+    this.createFormCloseBtn();
+    this.createInputBox();
+    this.getFormClose();
+  }
 }
 
 class LogInForm extends Form {
@@ -345,24 +342,25 @@ class VisitForm extends Form {
             type="text"
           />
         </div>`
-        );
-        return this.formInputName;
-    };
-    createCheckInputsValues() {
-        this.position = "beforeend";
-        this.parentElement = this.inputBox;
-        this.checkValuesBox = this.createElement(
-            `<div class="check-inputs-value">
+    );
+    return this.formInputName;
+  };
+
+  createCheckInputsValues() {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.checkValuesBox = this.createElement(
+      `<div class="check-inputs-value">
           <p class="check-inputs-value__text">Заполните все поля</p>
         </div>`
-        );
-        return this.checkValuesBox;
-    };
+    );
+    return this.checkValuesBox;
+  }
 
-    render() {
-        this.renderDefaultForm();
-        this.createDoctorsSelect();
-    }
+  render() {
+    this.renderDefaultForm();
+    this.createDoctorsSelect();
+  }
 }
 
 class CardioVisitForm extends VisitForm {
@@ -407,31 +405,21 @@ class CardioVisitForm extends VisitForm {
             type="text"
           />
         </div>`
-        );
-        return this.formInputAge;
-    };
+    );
+    return this.formInputAge;
+  };
 
-getInputData(){
-    this.doctor = "Сardiologist";
-    this.goal = document.querySelector(".purpose-input").value;
-    this.description = document.querySelector(".description-visit-input").value;
-    this.fio = document.querySelector(".name-input").value;
-    this.pressure = document.querySelector(".pressure-input").value;
-    this.illnesses = document.querySelector(".diseases-input").value;
-    this.age = document.querySelector(".age-input").value;
-};
-
-    render() {
-        this.renderDefaultForm();
-        this.createInputPurpose();
-        this.createInputDescription();
-        this.createInputName();
-        this.createInputPressure();
-        this.createInputDiseases();
-        this.createInputAge();
-        this.createVisitSubmit();
-        this.createCheckInputsValues();
-    }
+  render() {
+    this.renderDefaultForm();
+    this.createInputPurpose();
+    this.createInputDescription();
+    this.createInputName();
+    this.createInputPressure();
+    this.createInputDiseases();
+    this.createInputAge();
+    this.createVisitSubmit();
+    this.createCheckInputsValues();
+  }
 }
 
 class DentistVisitForm extends VisitForm {
@@ -446,27 +434,19 @@ class DentistVisitForm extends VisitForm {
             type="text"
           />
         </div>`
-        );
-        return this.formInputLastVisit;
-    };
+    );
+    return this.formInputLastVisit;
+  };
 
-    getInputData() {
-    this.doctor = "Dentist";
-    this.goal = document.querySelector(".purpose-input").value;
-    this.description = document.querySelector(".description-visit-input").value;
-    this.fio = document.querySelector(".name-input").value;
-    this.lastVisit = document.querySelector(".last-visit-input").value;
-};
-
-    render() {
-        this.renderDefaultForm();
-        this.createInputPurpose();
-        this.createInputDescription();
-        this.createInputName();
-        this.createInputLastVisit();
-        this.createVisitSubmit();
-        this.createCheckInputsValues();
-    }
+  render() {
+    this.renderDefaultForm();
+    this.createInputPurpose();
+    this.createInputDescription();
+    this.createInputName();
+    this.createInputLastVisit();
+    this.createVisitSubmit();
+    this.createCheckInputsValues();
+  }
 }
 
 class TherapistVisitForm extends VisitForm {
@@ -481,27 +461,19 @@ class TherapistVisitForm extends VisitForm {
             type="text"
           />
         </div>`
-        );
-        return this.formInputAge;
-    };
+    );
+    return this.formInputAge;
+  };
 
-    getInputData() {
-    this.doctor = "Therapist";
-    this.goal = document.querySelector(".purpose-input").value;
-    this.description = document.querySelector(".description-visit-input").value;
-    this.fio = document.querySelector(".name-input").value;
-    this.age = document.querySelector(".age-input-therapist").value;
-};
-
-    render() {
-        this.renderDefaultForm();
-        this.createInputPurpose();
-        this.createInputDescription();
-        this.createInputName();
-        this.createInputAge();
-        this.createVisitSubmit();
-        this.createCheckInputsValues();
-    }
+  render() {
+    this.renderDefaultForm();
+    this.createInputPurpose();
+    this.createInputDescription();
+    this.createInputName();
+    this.createInputAge();
+    this.createVisitSubmit();
+    this.createCheckInputsValues();
+  }
 }
 
 let cardioVisitModal;
@@ -640,20 +612,22 @@ class DoctorAPIService{
             },
         });
     }
-    // changeCard(cardId) {
-    //     fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Authorization: `Bearer ce156da3-d189-40b2-b87d-6d98918eb367`,
-    //         },
-    //         body: JSON.stringify({
-    //
-    //         }),
-    //     })
-    //         .then((response) => response.json())
-    //         .then((response) => console.log(response));
-    // }
-}
 
-const doctorAPIService = new DoctorAPIService();
+    const modalBox = document.querySelector(".modal-content");
+    modalBox.addEventListener("click", (e) => {
+      const creatVisitBtn = document.querySelector(".creat-visit");
+      const creatError = document.querySelector(".check-inputs-value");
+      const inputsNode = document.querySelectorAll(".forms-inputs__item");
+      if (e.target === creatVisitBtn) {
+        const inputsArr = [...inputsNode];
+        inputsArr.forEach((e) => {
+          if (e.value === "") {
+            creatError.style.display = "block";
+          } else {
+            creatError.style.display = "none";
+          }
+        });
+      }
+    });
+  });
+});
