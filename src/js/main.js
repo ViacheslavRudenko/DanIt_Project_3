@@ -2,38 +2,10 @@ const body = document.querySelector("body");
 const mainBox = document.querySelector(".main-content");
 const btnLogIn = document.querySelector(".header-container__btn .btn");
 const btnCreatVisit = document.querySelector(".creat-visit-btn");
-
-// клас Component, для створення елементів
-
-// Перший стпосіб:
-//this.position = "beforeend";
-// this.parentElement = body;
-// this.createElement(` <div class="modal fade show form-box" </div>`);
-
-// Другий спосіб: (можна пропустити якусь властивість)
-// this.formSubmit = this.createElement({
-//   tagName: "button",
-//   classNames: ["form-box__submit", "btn"],
-//   parentElement: this.formBoxItem,
-//   content: "Вход",
-//   key: data-id,
-//   value: 1, //data-id
-//   position: "prepend"
-// })
-
-/*
-Component. Все элементы страницы по сути являются её компонентами (составляющими): будь то форма, отдельные элементы формы, модальные окна и так далее. Component - это главный класс, который представляет компонент. У этого класса могут существовать свойства и методы, которые нужны всем дочерним классам (своего рода "глобальные"). В частности может существовать метод createElement, который принимает в качестве аргумента объект с нужным набором свойств и на базе полученных данных создает HTML-элемент. Объект может содержать разные свойства, например:
-tagName - название тега (какой HTML-элемент надо создать);
-classNames - массив с названиями классов, которые нужно присвоить элементу;
-attributes - объект с набором атрибутов, которые надо присвоить элементу (название атрибута - это key в объекте, значение атрибута - value в объекте);
-content - содержимое элемента. Это может быть как просто текст, так и другой элемент;
-parentElement - если нужно будет сохранять какую-то связь с родительским элементом, то можно иметь и такое свойство.
-
-Либо метод createElement может получать не объект, а HTML-строку.
-
-Количество данных и типы данных - на ваше усмотрение. Идея понятна: метод получает данные и на базе этих данных создает элемент для DOM-дерева. Этот элемент можно вставлять в нужное место страницы. Допустим, можно делать проверку, что если в качестве данных мы получили HTML-строку (typeof arg === 'string'), то использовать для вставки Element.insertAdjacentHTML(), в противном случае обработать полученный объект (всего его свойства, в том числе внутренние объекты) и создать элемент с нужными классами, атрибутами и прочими свойствами.
-
-*/
+const token = "ce156da3-d189-40b2-b87d-6d98918eb367";
+let visitDentist;
+let visitCardiologist;
+let visitTherapist;
 
 class Component {
   constructor(parentElement, position) {
@@ -80,9 +52,6 @@ class Component {
     return this.element;
   }
 }
-
-//класс Form - общий класс для всех форм. Он не презентует конкретную форму. Для создания конкретных форм используем дочерние классы. Возьмем с ТЗ по аналогии с Visit и дальше по иерархии. Все также - класс Form может содержать общие свойства и методы для всех форм (например, submitForm), а дочерние - уже более тематические.
-// Він створює модальне вікно, btn - sumbit та btn - close modal
 
 class Form extends Component {
   createForm = () => {
@@ -393,7 +362,7 @@ class CardioVisitForm extends VisitForm {
     this.parentElement = this.inputBox;
     this.formInputAge = this.createElement(
       `<div class="forms-inputs mb-4">
-          <input class="forms-inputs__item diseases-input"
+          <input class="forms-inputs__item age-input"
             placeholder="Возраст"
             autocomplete="off"
             type="text"
@@ -402,6 +371,18 @@ class CardioVisitForm extends VisitForm {
     );
     return this.formInputAge;
   };
+
+  getInputData() {
+    this.doctor = "Сardiologist";
+    this.purpose = document.querySelector(".purpose-input").value;
+    this.descriptionVisit = document.querySelector(
+      ".description-visit-input"
+    ).value;
+    this.name = document.querySelector(".name-input").value;
+    this.age = document.querySelector(".age-input").value;
+    this.pressure = document.querySelector(".pressure-input").value;
+    this.diseases = document.querySelector(".diseases-input").value;
+  }
 
   render() {
     this.renderDefaultForm();
@@ -422,7 +403,7 @@ class DentistVisitForm extends VisitForm {
     this.parentElement = this.inputBox;
     this.formInputLastVisit = this.createElement(
       `<div class="forms-inputs mb-4">
-          <input class="forms-inputs__item diseases-input"
+          <input class="forms-inputs__item last-visit-input"
             placeholder="Дата последнего визита"
             autocomplete="off"
             type="text"
@@ -431,7 +412,15 @@ class DentistVisitForm extends VisitForm {
     );
     return this.formInputLastVisit;
   };
-
+  getInputData() {
+    this.doctor = "Dentist";
+    this.purpose = document.querySelector(".purpose-input").value;
+    this.descriptionVisit = document.querySelector(
+      ".description-visit-input"
+    ).value;
+    this.name = document.querySelector(".name-input").value;
+    this.lastVisit = document.querySelector(".last-visit-input").value;
+  }
   render() {
     this.renderDefaultForm();
     this.createInputPurpose();
@@ -449,7 +438,7 @@ class TherapistVisitForm extends VisitForm {
     this.parentElement = this.inputBox;
     this.formInputAge = this.createElement(
       `<div class="forms-inputs mb-4">
-          <input class="forms-inputs__item diseases-input"
+          <input class="forms-inputs__item age-input"
             placeholder="Возраст"
             autocomplete="off"
             type="text"
@@ -458,7 +447,15 @@ class TherapistVisitForm extends VisitForm {
     );
     return this.formInputAge;
   };
-
+  getInputData() {
+    this.doctor = "Therapist";
+    this.purpose = document.querySelector(".purpose-input").value;
+    this.descriptionVisit = document.querySelector(
+      ".description-visit-input"
+    ).value;
+    this.name = document.querySelector(".name-input").value;
+    this.age = document.querySelector(".age-input").value;
+  }
   render() {
     this.renderDefaultForm();
     this.createInputPurpose();
@@ -469,6 +466,9 @@ class TherapistVisitForm extends VisitForm {
     this.createCheckInputsValues();
   }
 }
+let cardioVisitModal;
+let dentistVisitModal;
+let therapistVisitModal;
 
 btnCreatVisit.addEventListener("click", () => {
   btnCreatVisit.disabled = true;
@@ -494,40 +494,194 @@ btnCreatVisit.addEventListener("click", () => {
       selectDoctorsList.style.display = "none";
     }
   });
-
+  let selectedDoctor;
   selectDoctorsList.addEventListener("click", (e) => {
+    // delete
     if (e.target.classList.contains("cardio-doctor")) {
       selectDoctorsList.style.display = "none";
-      doctors.classList.remove("menu");
-      const cardioVisitModal = new CardioVisitForm();
+      document.querySelector(".doctors-box").remove();
+      btnCreatVisit.disabled = false;
+      cardioVisitModal = new CardioVisitForm();
+      selectedDoctor = "cardioVisitModal";
       cardioVisitModal.render();
     } else if (e.target.classList.contains("dentist")) {
       selectDoctorsList.style.display = "none";
-      doctors.classList.remove("menu");
-      const dentistVisitModal = new DentistVisitForm();
+      document.querySelector(".doctors-box").remove();
+      btnCreatVisit.disabled = false;
+      dentistVisitModal = new DentistVisitForm();
+      selectedDoctor = "dentistVisitModal";
       dentistVisitModal.render();
     } else if (e.target.classList.contains("therapist")) {
       selectDoctorsList.style.display = "none";
-      doctors.classList.remove("menu");
-      const therapistVisitModal = new TherapistVisitForm();
+      document.querySelector(".doctors-box").remove();
+      btnCreatVisit.disabled = false;
+      therapistVisitModal = new TherapistVisitForm();
+      selectedDoctor = "therapistVisitModal";
       therapistVisitModal.render();
     }
 
-    const modalBox = document.querySelector(".modal-content");
-    modalBox.addEventListener("click", (e) => {
-      const creatVisitBtn = document.querySelector(".creat-visit");
-      const creatError = document.querySelector(".check-inputs-value");
+    // const modalBox = document.querySelector(".modal-content");
+    const creatVisitBtn = document.querySelector(".creat-visit");
+    const creatError = document.querySelector(".check-inputs-value");
+    creatVisitBtn.addEventListener("click", (e) => {
       const inputsNode = document.querySelectorAll(".forms-inputs__item");
-      if (e.target === creatVisitBtn) {
-        const inputsArr = [...inputsNode];
-        inputsArr.forEach((e) => {
-          if (e.value === "") {
-            creatError.style.display = "block";
-          } else {
-            creatError.style.display = "none";
-          }
-        });
+      const inputsArr = [...inputsNode];
+      inputsArr.forEach((e) => {
+        if (e.value === "") {
+          creatError.style.display = "block";
+        } else {
+          creatError.style.display = "none";
+        }
+      });
+      if (creatError.style.display == "none") {
+        if (selectedDoctor == "therapistVisitModal") {
+          therapistVisitModal.getInputData();
+          console.log(therapistVisitModal);
+          doctorAPIService.createCard(therapistVisitModal);
+        }
+        if (selectedDoctor == "dentistVisitModal") {
+          dentistVisitModal.getInputData();
+          console.log(dentistVisitModal);
+          doctorAPIService.createCard(dentistVisitModal);
+        }
+        if (selectedDoctor == "cardioVisitModal") {
+          cardioVisitModal.getInputData();
+          console.log(cardioVisitModal);
+          doctorAPIService.createCard(cardioVisitModal);
+        }
       }
     });
   });
 });
+
+class DoctorAPIService {
+  createCard(obj) {
+    fetch("https://ajax.test-danit.com/api/v2/cards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        purpose: obj.purpose,
+        description: obj.descriptionVisit,
+        name: obj.name,
+        doctor: obj.doctor,
+        pressure: obj.pressure,
+        diseases: obj.diseases,
+        age: obj.age,
+        lastVisit: obj.lastVisit,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.doctor == "Therapist") {
+          visitTherapist = new VisitTherapist();
+          visitTherapist.render(response);
+          console.log(visitTherapist);
+        }
+        if (response.doctor == "Dentist") {
+          visitDentist = new VisitDentist();
+          visitDentist.render(response);
+          console.log(visitDentist);
+        }
+        if (response.doctor == "Cardiologist") {
+          visitCardiologist = new VisitCardiologist();
+          visitCardiologist.render(response);
+          console.log(visitCardiologist);
+        }
+      });
+  }
+  deleteCard(cardId) {
+    fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  getAllCreatedCards() {
+    fetch(`https://ajax.test-danit.com/api/v2/cards`, {
+      method: "GET ",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  getOneCard(cardId) {
+    fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  changeCard(cardId) {
+    fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        // вносить изменения, пока хз как
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response));
+  }
+}
+
+class Visit {
+  getName(response) {
+    this.name = response.name;
+  }
+  getPurpose(response) {
+    this.purpose = response.purpose;
+  }
+  getDescription(response) {
+    this.description = response.description;
+  }
+  renderDefaultVisit(response) {
+    this.getName(response);
+    this.getPurpose(response);
+    this.getDescription(response);
+  }
+}
+class VisitDentist extends Visit {
+  getLastVisit(response) {
+    this.lastVisit = response.lastVisit;
+  }
+  render(response) {
+    this.renderDefaultVisit(response);
+    this.getLastVisit(response);
+  }
+}
+class VisitCardiologist extends Visit {
+  getPressure(response) {
+    this.pressure = response.pressure;
+  }
+  getDiseases(response) {
+    this.diseases = response.diseases;
+  }
+  getAge(response) {
+    this.age = response.age;
+  }
+  render(response) {
+    this.renderDefaultVisit(response);
+    this.getPressure(response);
+    this.getDiseases(response);
+    this.getAge(response);
+  }
+}
+class VisitTherapist extends Visit {
+  getAge(response) {
+    this.age = response.age;
+  }
+  render(response) {
+    this.renderDefaultVisit(response);
+    this.getAge(response);
+  }
+}
+
+const doctorAPIService = new DoctorAPIService();
