@@ -2,27 +2,28 @@
 @import "reset";
 @import "variables";
 @import "mixins";
-
 body {
-  min-width: 320px;
+    min-width: 320px;
 }
 
 .main {
-  background-image: url(../images/doctor-with-medical-mask-background-vector.jpeg);
-  @include img-position;
-  height: 100vh; //тимчасово
+    background-image: url(../images/doctor-with-medical-mask-background-vector.jpeg);
+    @include img-position;
+    height: 100vh; //тимчасово
 }
+
 .section-width {
-  max-width: $container-max-widths;
+    max-width: $container-max-widths;
 }
+
 .section {
-  background-color: whitesmoke;
-  height: 100vh;
-  box-shadow: 0px 0px 12px 2px #313131;
-  margin: 0 auto;
-  box-sizing: border-box;
-  font-family: $fontLato;
-  padding: 20px;
+    background-color: whitesmoke;
+    height: 100vh;
+    box-shadow: 0px 0px 12px 2px #313131;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: $fontLato;
+    padding: 20px;
 }
 
 @import "buttons";
