@@ -608,7 +608,6 @@ class DoctorAPIService {
       },
     });
   }
-  
   getOneCard(cardId) {
     fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
       method: "GET",
