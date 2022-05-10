@@ -239,6 +239,9 @@ btnLogIn.addEventListener("click", (e) => {
 });
 
 //------------- visit modal ------------------
+let cardioVisitModal;
+let dentistVisitModal;
+let therapistVisitModal;
 class VisitForm extends Form {
   createDoctorsSelect = () => {
     this.position = "beforeend";
@@ -464,11 +467,9 @@ class TherapistVisitForm extends VisitForm {
     this.createInputAge();
     this.createVisitSubmit();
     this.createCheckInputsValues();
+    // this.getFormCloseAction();
   }
 }
-let cardioVisitModal;
-let dentistVisitModal;
-let therapistVisitModal;
 
 btnCreatVisit.addEventListener("click", () => {
   btnCreatVisit.disabled = true;
@@ -520,20 +521,23 @@ btnCreatVisit.addEventListener("click", () => {
       therapistVisitModal.render();
     }
 
-    // const modalBox = document.querySelector(".modal-content");
     const creatVisitBtn = document.querySelector(".creat-visit");
-    const creatError = document.querySelector(".check-inputs-value");
     creatVisitBtn.addEventListener("click", (e) => {
+      const creatError = document.querySelector(".check-inputs-value");
       const inputsNode = document.querySelectorAll(".forms-inputs__item");
       const inputsArr = [...inputsNode];
-      inputsArr.forEach((e) => {
+      inputsArr.every((e) => {
         if (e.value === "") {
           creatError.style.display = "block";
+          return false;
         } else {
           creatError.style.display = "none";
+          return true;
         }
       });
       if (creatError.style.display == "none") {
+        const formVisitBox = document.querySelector(".modal-content ");
+        formVisitBox.style.display = "none";
         if (selectedDoctor == "therapistVisitModal") {
           therapistVisitModal.getInputData();
           console.log(therapistVisitModal);
