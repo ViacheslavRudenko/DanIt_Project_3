@@ -537,9 +537,9 @@ btnCreatVisit.addEventListener("click", () => {
       });
       if (creatError.style.display == "none") {
         const formVisitBox = document.querySelector(".modal-content ");
-        formVisitBox.style.display = "none";
-        body.style.overflow = "visible";
-        btnCreatVisit.disabled = false;
+        // formVisitBox..display = "none";
+        // body.style.overflow = "visible";
+        // btnCreatVisit.disabled = false;
 
         if (selectedDoctor == "therapistVisitModal") {
           therapistVisitModal.getInputData();
