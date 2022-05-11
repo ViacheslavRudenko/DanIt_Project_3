@@ -477,9 +477,9 @@ btnCreatVisit.addEventListener("click", () => {
   doctorsBox.classList.add("doctors-box");
   doctorsBox.innerHTML = `<div class="items-doctors">Выберите врача</div>
   <ul class="select-list-doctors">
-    <a class="select-list-doctors__link" href="#"><li class="cardio-doctor">Кардиолог</li></a>
-    <a class="select-list-doctors__link" href="#"><li class="dentist">Стоматолог</li></a>
-    <a class="select-list-doctors__link" href="#"><li class="therapist">Терапевт</li></a>
+    <a class="select-list-doctors__link cardio-doctor" href="#"><li >Кардиолог</li></a>
+    <a class="select-list-doctors__link dentist" href="#"><li>Стоматолог</li></a>
+    <a class="select-list-doctors__link therapist" href="#"><li>Терапевт</li></a>
   </ul>`;
   mainBox.append(doctorsBox);
 
@@ -498,21 +498,21 @@ btnCreatVisit.addEventListener("click", () => {
   let selectedDoctor;
   selectDoctorsList.addEventListener("click", (e) => {
     // delete
-    if (e.target.classList.contains("cardio-doctor")) {
+    if (e.target.closest(".cardio-doctor")) {
       selectDoctorsList.style.display = "none";
       document.querySelector(".doctors-box").remove();
       btnCreatVisit.disabled = false;
       cardioVisitModal = new CardioVisitForm();
       selectedDoctor = "cardioVisitModal";
       cardioVisitModal.render();
-    } else if (e.target.classList.contains("dentist")) {
+    } else if (e.target.closest(".dentist")) {
       selectDoctorsList.style.display = "none";
       document.querySelector(".doctors-box").remove();
       btnCreatVisit.disabled = false;
       dentistVisitModal = new DentistVisitForm();
       selectedDoctor = "dentistVisitModal";
       dentistVisitModal.render();
-    } else if (e.target.classList.contains("therapist")) {
+    } else if (e.target.closest(".therapist")) {
       selectDoctorsList.style.display = "none";
       document.querySelector(".doctors-box").remove();
       btnCreatVisit.disabled = false;
@@ -538,6 +538,9 @@ btnCreatVisit.addEventListener("click", () => {
       if (creatError.style.display == "none") {
         const formVisitBox = document.querySelector(".modal-content ");
         formVisitBox.style.display = "none";
+        body.style.overflow = "visible";
+        btnCreatVisit.disabled = false;
+
         if (selectedDoctor == "therapistVisitModal") {
           therapistVisitModal.getInputData();
           console.log(therapistVisitModal);
