@@ -1,0 +1,46 @@
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.visit-card-element {
+  position: relative;
+  flex: 0 1 22%;
+  min-width: 200px;
+  margin: 10px 10px;
+  background-color: rgb(198, 228, 255);
+}
+// .description,
+// .pressure,
+// .diseases,
+// .age,
+// .visit-number,
+// .visit-doctor,
+// .lastVisit,
+// .edit {
+//   display: none;
+// }
+.delete-card {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-size: 25px;
+  padding: 5px;
+}
+.edit-name,
+.edit-purpose,
+.edit-description,
+.edit-age {
+  padding: 10px 0 10px 0px;
+}
+.edit-name-input,
+.edit-purpose-input,
+.edit-description-input,
+.edit-age-input {
+  width: 100%;
+}
+.edit-card-btn {
+  margin: 0 auto;
+  background-color: #000;
+}

@@ -2,10 +2,13 @@ const body = document.querySelector("body");
 const mainBox = document.querySelector(".main-content");
 const btnLogIn = document.querySelector(".header-container__btn .btn");
 const btnCreatVisit = document.querySelector(".creat-visit-btn");
-const token = "ce156da3-d189-40b2-b87d-6d98918eb367";
+const token = "8fb8e795-7b38-46c3-9c84-d3f2588a2d5f";
+
 let visitDentist;
 let visitCardiologist;
 let visitTherapist;
+
+let item = 0;
 
 class Component {
   constructor(parentElement, position) {
@@ -185,8 +188,9 @@ class LogInForm extends Form {
       if (this.dataValue) {
         btnLogIn.remove();
         btnCreatVisit.style.display = "block";
-        mainBox.innerHTML = "No items have been added";
+        mainBox.innerHTML = `<div class='no-items'> No items have been added</div>`;
       }
+      doctorAPIService.getAllCreatedCards();
     });
   }
 
@@ -535,26 +539,35 @@ btnCreatVisit.addEventListener("click", () => {
       });
       if (creatError.style.display == "none") {
         if (selectedDoctor == "therapistVisitModal") {
-          therapistVisitModal.getInputData();
-          console.log(therapistVisitModal);
+          therapistVisitModal.getInputData(); // тут нужно создавать обьект карточки
+          visitTherapist = new VisitTherapist();
           doctorAPIService.createCard(therapistVisitModal);
+          document.querySelector(".modal").remove();
+          if (document.querySelector(".no-items"))
+            document.querySelector(".no-items").remove();
         }
         if (selectedDoctor == "dentistVisitModal") {
           dentistVisitModal.getInputData();
-          console.log(dentistVisitModal);
+          visitDentist = new VisitDentist();
           doctorAPIService.createCard(dentistVisitModal);
+          document.querySelector(".modal").remove();
+          if (document.querySelector(".no-items"))
+            document.querySelector(".no-items").remove();
         }
         if (selectedDoctor == "cardioVisitModal") {
           cardioVisitModal.getInputData();
-          console.log(cardioVisitModal);
+          visitCardiologist = new VisitCardiologist();
           doctorAPIService.createCard(cardioVisitModal);
+          document.querySelector(".modal").remove();
+          if (document.querySelector(".no-items"))
+            document.querySelector(".no-items").remove();
         }
       }
     });
   });
 });
 
-class DoctorAPIService {
+class DoctorAPIService extends Component {
   createCard(obj) {
     fetch("https://ajax.test-danit.com/api/v2/cards", {
       method: "POST",
@@ -576,19 +589,13 @@ class DoctorAPIService {
       .then((response) => response.json())
       .then((response) => {
         if (response.doctor == "Therapist") {
-          visitTherapist = new VisitTherapist();
           visitTherapist.render(response);
-          console.log(visitTherapist);
         }
         if (response.doctor == "Dentist") {
-          visitDentist = new VisitDentist();
           visitDentist.render(response);
-          console.log(visitDentist);
         }
-        if (response.doctor == "Cardiologist") {
-          visitCardiologist = new VisitCardiologist();
+        if (response.doctor == "Сardiologist") {
           visitCardiologist.render(response);
-          console.log(visitCardiologist);
         }
       });
   }
@@ -602,13 +609,20 @@ class DoctorAPIService {
   }
   getAllCreatedCards() {
     fetch(`https://ajax.test-danit.com/api/v2/cards`, {
-      method: "GET ",
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        response.forEach((elem) => {
+          // тут нужно показывать все карточки при авторизации
+        });
+      });
   }
-  
+
   getOneCard(cardId) {
     fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
       method: "GET",
@@ -617,7 +631,7 @@ class DoctorAPIService {
       },
     });
   }
-  changeCard(cardId) {
+  changeCard(cardId, name, purpose, description, age) {
     fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
       method: "PUT",
       headers: {
@@ -625,7 +639,10 @@ class DoctorAPIService {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        // вносить изменения, пока хз как
+        age: age,
+        description: description,
+        name: name,
+        purpose: purpose,
       }),
     })
       .then((response) => response.json())
@@ -633,7 +650,7 @@ class DoctorAPIService {
   }
 }
 
-class Visit {
+class Visit extends Component {
   getName(response) {
     this.name = response.name;
   }
@@ -653,14 +670,80 @@ class VisitDentist extends Visit {
   getLastVisit(response) {
     this.lastVisit = response.lastVisit;
   }
+  getID(response) {
+    this.id = response.id;
+  }
+  getDoctor(response) {
+    this.doctor = response.doctor;
+  }
+  showCard() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(".main-content");
+    this
+      .createElement(`<div data-item=${item}  class='visit-dentist-card visit-card-element'>
+    <div   class='delete-card delete-card-${item}'> X </div>
+    <div class='name'>Имя: ${this.name}</div>
+    <div class='visit-doctor'>Доктор: ${this.doctor}</div> 
+
+    </div>`);
+  }
+  createBtnShowMore() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(
+      `.visit-dentist-card[data-item="${item}"]`
+    );
+    this.createElement(`
+    <button data-item=${item} type='submit' class='show-more'>Показать больше</button>
+    `);
+    this.btnShowMore = document.querySelector(
+      `.show-more[data-item="${item}"]`
+    );
+    this.btnShowMore.addEventListener("click", () => {
+      this.createElement(`
+      <div class='purpose'>Цель визита: ${this.purpose}</div>
+      <div class='description'>Описание визита: ${this.description}</div>
+      <div class='lastVisit'>Последний визит: ${this.lastVisit}</div>
+      <div class='visit-number'>Номер визита: ${this.id}</div>  
+      <button type='submit' class = 'edit edit-card-${item}'>Редактировать</button>
+      `);
+      this.btnShowMore.remove();
+      this.editCard();
+    });
+  }
+  deleteCard() {
+    this.delete = document.querySelector(`.delete-card-${item}`);
+    this.delete.addEventListener("click", () => {
+      this.delete.parentNode.remove();
+    });
+    item++;
+  }
+  editCard() {
+    this.edit = document.querySelector(`.edit-card-${item}`);
+    this.edit.addEventListener("click", () => {
+      this.edit.parentNode.remove();
+      const editCardForm = new EditCardFormDentist();
+      editCardForm.render(this.id);
+    });
+  }
   render(response) {
+    this.getID(response);
+    this.getDoctor(response);
     this.renderDefaultVisit(response);
     this.getLastVisit(response);
+    this.showCard();
+    this.createBtnShowMore();
+    this.deleteCard();
   }
 }
 class VisitCardiologist extends Visit {
   getPressure(response) {
     this.pressure = response.pressure;
+  }
+  getID(response) {
+    this.id = response.id;
+  }
+  getDoctor(response) {
+    this.doctor = response.doctor;
   }
   getDiseases(response) {
     this.diseases = response.diseases;
@@ -668,20 +751,339 @@ class VisitCardiologist extends Visit {
   getAge(response) {
     this.age = response.age;
   }
+  showCard() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(".main-content");
+    this
+      .createElement(`<div data-item=${item}  class='visit-cardiologist-card visit-card-element'>
+    <div   class='delete-card delete-card-${item}'> X </div>
+    <div class='name'>Имя: ${this.name}</div>
+    <div class='visit-doctor'>Доктор: ${this.doctor}</div>  
+    </div>`);
+  }
+  createBtnShowMore() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(
+      `.visit-cardiologist-card[data-item="${item}"]`
+    );
+    this.createElement(`
+    <button data-item=${item} type='submit' class='show-more'>Показать больше</button>
+    `);
+    this.btnShowMore = document.querySelector(
+      `.show-more[data-item="${item}"]`
+    );
+    this.btnShowMore.addEventListener("click", () => {
+      this.createElement(`
+      <div class='purpose'>Обычное давление: ${this.pressure}</div>
+      <div class='description'>Описание визита: ${this.description}</div>
+      <div class='purpose'>Цель визита: ${this.purpose}</div>
+      <div class='diseases'>Перенесенные заболевания сердечно-сосудистой системы: ${this.diseases}</div>
+      <div class='age'>Возраст: ${this.age}</div>
+      <div class='visit-number'>Номер визита: ${this.id}</div>  
+      <button type='submit' class = 'edit edit-card-${item}'>Редактировать</button>
+      `);
+      this.btnShowMore.remove();
+      this.editCard();
+    });
+  }
+  deleteCard() {
+    this.delete = document.querySelector(`.delete-card-${item}`);
+    this.delete.addEventListener("click", () => {
+      this.delete.parentNode.remove();
+    });
+    item++;
+  }
+  editCard() {
+    this.edit = document.querySelector(`.edit-card-${item}`);
+    this.edit.addEventListener("click", () => {
+      this.edit.parentNode.remove();
+      const editCardForm = new EditCardFormCardiologist();
+      editCardForm.render(this.id);
+      console.log(1); // тут редактируем изминения
+    });
+  }
   render(response) {
+    this.getID(response);
+    this.getDoctor(response);
     this.renderDefaultVisit(response);
     this.getPressure(response);
     this.getDiseases(response);
     this.getAge(response);
+    this.showCard();
+    this.createBtnShowMore();
+    this.deleteCard();
   }
 }
 class VisitTherapist extends Visit {
   getAge(response) {
     this.age = response.age;
   }
+  getID(response) {
+    this.id = response.id;
+  }
+  getDoctor(response) {
+    this.doctor = response.doctor;
+  }
+  showCard() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(".main-content");
+    this
+      .createElement(`<div data-item=${item}  class='visit-therapist-card visit-card-element'>
+    <div   class='delete-card delete-card-${item}'> X </div>
+    <div class='name'>Имя: ${this.name}</div>
+    <div class='visit-doctor'>Доктор: ${this.doctor}</div>  
+    </div>`);
+  }
+  createBtnShowMore() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(
+      `.visit-therapist-card[data-item="${item}"]`
+    );
+    this.createElement(`
+    <button data-item=${item} type='submit' class='show-more'>Показать больше</button>
+    `);
+    this.btnShowMore = document.querySelector(
+      `.show-more[data-item="${item}"]`
+    );
+    this.btnShowMore.addEventListener("click", () => {
+      this.createElement(`
+      <div class='purpose'>Цель визита: ${this.purpose}</div>
+      <div class='description'>Описание визита: ${this.description}</div>
+      <div class='lastVisit'>Возраст: ${this.age}</div>
+      <div class='visit-number'>Номер визита: ${this.id}</div>  
+      <button type='submit' class = 'edit edit-card-${item}'>Редактировать</button>
+      `);
+      this.btnShowMore.remove();
+      this.editCard();
+    });
+  }
+  deleteCard() {
+    this.delete = document.querySelector(`.delete-card-${item}`);
+    this.delete.addEventListener("click", () => {
+      doctorAPIService.deleteCard(this.id);
+      this.delete.parentNode.remove();
+    });
+    item++;
+  }
+  editCard() {
+    this.edit = document.querySelector(`.edit-card-${item}`);
+    this.edit.addEventListener("click", () => {
+      this.edit.parentNode.remove();
+      const editCardForm = new EditCardFormTherapist();
+      editCardForm.render(this.id);
+      console.log(1); // тут редактируем изминения
+    });
+  }
   render(response) {
+    this.getID(response);
+    this.getDoctor(response);
     this.renderDefaultVisit(response);
     this.getAge(response);
+    this.showCard();
+    this.createBtnShowMore();
+    this.deleteCard();
+  }
+}
+class EditCardFormDentist extends Form {
+  createEditForm() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(".form-data");
+    this.createElement(`
+      <div class = 'edit-name'>Измените имя:</div>
+      <input type"text" class='edit-name-input'>
+      <div class = 'edit-purpose'>Измените цель визита:</div>
+      <input type"text" class='edit-purpose-input'>
+      <div class = 'edit-description'>Измените описание визита:</div>
+      <input type"text" class='edit-description-input'>
+      <div class = 'edit-lastVisit'>Измените дату последнего визита:</div>
+      <input type"text" class='edit-lastVisit-input'>
+      <button type='submit' class='edit-card-btn btn'>Редактировать изменения</button>
+    `);
+  }
+  trackEditBtn(id) {
+    // this.position = "beforeend";
+    // this.parentElement = document.querySelector(
+    //   `.visit-therapist-card[data-item="${item}"]`
+    // );
+    console.log(id);
+    this.editBtn = document.querySelector(".edit-card-btn");
+    this.editBtn.addEventListener("click", () => {
+      this.editName = document.querySelector(".edit-name-input").value;
+      this.editPurpose = document.querySelector(".edit-purpose-input").value;
+      this.editDescription = document.querySelector(
+        ".edit-description-input"
+      ).value;
+      this.lastVisit = document.querySelector(".edit-lastVisit-input").value;
+      doctorAPIService.changeCard(
+        id,
+        this.editName,
+        this.editPurpose,
+        this.editDescription,
+        this.lastVisit
+      );
+      this.position = "beforeend";
+      this.parentElement = document.querySelector(".main-content");
+      this
+        .createElement(`<div data-item=${item}  class='visit-therapist-card visit-card-element'>
+      <div class='delete-card delete-card-${item}'> X </div>
+      <div class='name'>Имя: ${this.editName}</div>
+      <div class='visit-doctor'>Доктор: Dentist</div>  
+      <div class='purpose'>Цель визита: ${this.editPurpose}</div>
+      <div class='description'>Описание визита: ${this.editDescription}</div>
+      <div class='lastVisit'>Возраст: ${this.lastVisit}</div>
+      <div class='visit-number'>Номер визита: ${id}</div>  
+      </div>`);
+      this.delete = document.querySelector(`.delete-card-${item}`);
+      this.delete.addEventListener("click", () => {
+        doctorAPIService.deleteCard(id);
+        this.delete.parentNode.remove();
+      });
+      item++;
+      document.querySelector(".form-data").remove();
+    });
+  }
+  render(id) {
+    this.renderDefaultForm();
+    this.createEditForm();
+    this.trackEditBtn(id);
+  }
+}
+class EditCardFormTherapist extends Form {
+  createEditForm() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(".form-data");
+    this.createElement(`
+      <div class = 'edit-name'>Измените имя:</div>
+      <input type"text" class='edit-name-input'>
+      <div class = 'edit-purpose'>Измените цель визита:</div>
+      <input type"text" class='edit-purpose-input'>
+      <div class = 'edit-description'>Измените описание визита:</div>
+      <input type"text" class='edit-description-input'>
+      <div class = 'edit-age'>Измените возраст:</div>
+      <input type"text" class='edit-age-input'>
+      <button type='submit' class='edit-card-btn btn'>Редактировать изменения</button>
+    `);
+  }
+  trackEditBtn(id) {
+    // this.position = "beforeend";
+    // this.parentElement = document.querySelector(
+    //   `.visit-therapist-card[data-item="${item}"]`
+    // );
+    console.log(id);
+    this.editBtn = document.querySelector(".edit-card-btn");
+    this.editBtn.addEventListener("click", () => {
+      this.editName = document.querySelector(".edit-name-input").value;
+      this.editPurpose = document.querySelector(".edit-purpose-input").value;
+      this.editDescription = document.querySelector(
+        ".edit-description-input"
+      ).value;
+      this.editAge = document.querySelector(".edit-age-input").value;
+      doctorAPIService.changeCard(
+        id,
+        this.editName,
+        this.editPurpose,
+        this.editDescription,
+        this.editAge
+      );
+      this.position = "beforeend";
+      this.parentElement = document.querySelector(".main-content");
+      this
+        .createElement(`<div data-item=${item}  class='visit-therapist-card visit-card-element'>
+      <div class='delete-card delete-card-${item}'> X </div>
+      <div class='name'>Имя: ${this.editName}</div>
+      <div class='visit-doctor'>Доктор: Therapist</div>  
+      <div class='purpose'>Цель визита: ${this.editPurpose}</div>
+      <div class='description'>Описание визита: ${this.editDescription}</div>
+      <div class='lastVisit'>Возраст: ${this.editAge}</div>
+      <div class='visit-number'>Номер визита: ${id}</div>  
+      </div>`);
+      this.delete = document.querySelector(`.delete-card-${item}`);
+      this.delete.addEventListener("click", () => {
+        doctorAPIService.deleteCard(id);
+        this.delete.parentNode.remove();
+      });
+      item++;
+      document.querySelector(".form-data").remove();
+    });
+  }
+  render(id) {
+    this.renderDefaultForm();
+    this.createEditForm();
+    this.trackEditBtn(id);
+  }
+}
+class EditCardFormCardiologist extends Form {
+  createEditForm() {
+    this.position = "beforeend";
+    this.parentElement = document.querySelector(".form-data");
+    this.createElement(`
+      <div class = 'edit-name'>Измените имя:</div>
+      <input type"text" class='edit-name-input'>
+      <div class = 'edit-purpose'>Измените цель визита:</div>
+      <input type"text" class='edit-purpose-input'>
+      <div class = 'edit-description'>Измените описание визита:</div>
+      <input type"text" class='edit-description-input'>
+      <div class = 'edit-age'>Измените возраст:</div>
+      <input type"text" class='edit-age-input'>
+      <div class = 'edit-diseases'>Измените заболевания:</div>
+      <input type"text" class='edit-diseases-input'>
+      <div class = 'edit-pressure'>Измените давление:</div>
+      <input type"text" class='edit-pressure-input'>
+      <button type='submit' class='edit-card-btn btn'>Редактировать изменения</button>
+    `);
+  }
+  trackEditBtn(id) {
+    // this.position = "beforeend";
+    // this.parentElement = document.querySelector(
+    //   `.visit-therapist-card[data-item="${item}"]`
+    // );
+    console.log(id);
+    this.editBtn = document.querySelector(".edit-card-btn");
+    this.editBtn.addEventListener("click", () => {
+      this.editName = document.querySelector(".edit-name-input").value;
+      this.editPurpose = document.querySelector(".edit-purpose-input").value;
+      this.editDescription = document.querySelector(
+        ".edit-description-input"
+      ).value;
+      this.editAge = document.querySelector(".edit-age-input").value;
+      this.editDiseases = document.querySelector(".edit-diseases-input").value;
+      this.editPressure = document.querySelector(".edit-pressure-input").value;
+      doctorAPIService.changeCard(
+        id,
+        this.editName,
+        this.editPurpose,
+        this.editDescription,
+        this.editAge,
+        this.editDiseases,
+        this.editPressure
+      );
+      this.position = "beforeend";
+      this.parentElement = document.querySelector(".main-content");
+      this
+        .createElement(`<div data-item=${item}  class='visit-therapist-card visit-card-element'>
+      <div class='delete-card delete-card-${item}'> X </div>
+      <div class='name'>Имя: ${this.editName}</div>
+      <div class='visit-doctor'>Доктор: Therapist</div>  
+      <div class='purpose'>Цель визита: ${this.editPurpose}</div>
+      <div class='description'>Описание визита: ${this.editDescription}</div>
+      <div class='lastVisit'>Возраст: ${this.editAge}</div>
+      <div class='visit-number'>Номер визита: ${id}</div>  
+      <div class='editDiseases'>Перенесенные заболевания сердечно-сосудистой системы:: ${this.editDiseases}</div>
+      <div class='editPressure'>Давление: ${this.editPressure}</div>
+      </div>`);
+      this.delete = document.querySelector(`.delete-card-${item}`);
+      this.delete.addEventListener("click", () => {
+        doctorAPIService.deleteCard(id);
+        this.delete.parentNode.remove();
+      });
+      item++;
+      document.querySelector(".form-data").remove();
+    });
+  }
+  render(id) {
+    this.renderDefaultForm();
+    this.createEditForm();
+    this.trackEditBtn(id);
   }
 }
 
