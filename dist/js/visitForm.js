@@ -6,8 +6,8 @@ export default class VisitForm extends Form {
     this.parentElement = this.inputBox;
     this.formInputDoctors = this.createElement(
       `<div class="forms-inputs mb-4">
-          <div class="items-doctors">Выберите врача:</div>
-          <ul class="select-list-doctors">
+          <div class="items-doctors ">Выберите врача:</div>
+          <ul class="select-list-doctors ">
             <a class="select-list-doctors__link" href="#"><li class="cardio-doctor">Кардиолог</li></a>
             <a class="select-list-doctors__link" href="#"><li class="dentist">Стоматолог</li></a>
             <a class="select-list-doctors__link" href="#"><li class="therapist">Терапевт</li></a>

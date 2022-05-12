@@ -38,9 +38,9 @@ let therapistVisitModal;
 btnCreatVisit.addEventListener("click", () => {
   btnCreatVisit.disabled = true;
   const doctorsBox = document.createElement("div");
-  doctorsBox.classList.add("doctors-box");
-  doctorsBox.innerHTML = `<div class="items-doctors">Выберите врача</div>
-  <ul class="select-list-doctors">
+  doctorsBox.classList.add("doctors-box", "modal-content", "form-box__item");
+  doctorsBox.innerHTML = `<div class="items-doctors ">Выберите врача</div>
+  <ul class="select-list-doctors modal-content">
     <a class="select-list-doctors__link" href="#"><li class="cardio-doctor">Кардиолог</li></a>
     <a class="select-list-doctors__link" href="#"><li class="dentist">Стоматолог</li></a>
     <a class="select-list-doctors__link" href="#"><li class="therapist">Терапевт</li></a>
