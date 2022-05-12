@@ -1,5 +1,6 @@
 import Visit from "./visit.js";
 import { item } from "./main.js";
+import { doctorAPIService } from "./main.js";
 
 import EditCardFormCardiologist from "./editCardFormCardiologist.js";
 
@@ -57,6 +58,7 @@ export default class VisitCardiologist extends Visit {
   deleteCard() {
     this.delete = document.querySelector(`.delete-card-${this.id}`);
     this.delete.addEventListener("click", () => {
+      doctorAPIService.deleteCard(this.id);
       this.delete.parentNode.remove();
     });
     //item++;

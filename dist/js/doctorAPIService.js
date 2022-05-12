@@ -5,6 +5,9 @@ import {
   visitCardiologist,
   visitDentist,
 } from "./main.js";
+import VisitCardiologist from "./visitCardiologist.js";
+import VisitDentist from "./visitDentist.js";
+import VisitTherapist from "./VisitTherapist.js";
 export default class DoctorAPIService extends Component {
   createCard(obj) {
     fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -56,7 +59,21 @@ export default class DoctorAPIService extends Component {
       .then((response) => {
         console.log(response);
         response.forEach((elem) => {
-          // тут нужно показывать все карточки при авторизации
+          if (document.querySelector(".no-items")) {
+            document.querySelector(".no-items").remove();
+          }
+          if (elem.doctor == "Сardiologist") {
+            let cardiologist = new VisitCardiologist();
+            cardiologist.render(elem);
+          }
+          if (elem.doctor == "Dentist") {
+            let dentist = new VisitDentist();
+            dentist.render(elem);
+          }
+          if (elem.doctor == "Therapist") {
+            let therapist = new VisitTherapist();
+            therapist.render(elem);
+          }
         });
       });
   }
@@ -81,8 +98,6 @@ export default class DoctorAPIService extends Component {
         name: name,
         purpose: purpose,
       }),
-    })
-      .then((response) => response.json())
-      .then((response) => console.log(response));
+    });
   }
 }

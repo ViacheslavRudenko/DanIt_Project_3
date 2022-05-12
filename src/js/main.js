@@ -1,7 +1,7 @@
 export const mainBox = document.querySelector(".main-content");
 export const btnLogIn = document.querySelector(".header-container__btn .btn");
 export const btnCreatVisit = document.querySelector(".creat-visit-btn");
-export const token = "8fb8e795-7b38-46c3-9c84-d3f2588a2d5f";
+export const token = "c58a3f9c-be07-4e73-abe9-9f1e92c8d5b9";
 
 export let visitDentist, visitCardiologist, visitTherapist;
 

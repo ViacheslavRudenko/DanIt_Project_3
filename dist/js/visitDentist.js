@@ -1,6 +1,6 @@
 import Visit from "./visit.js";
 import { item } from "./main.js";
-
+import { doctorAPIService } from "./main.js";
 import EditCardFormDentist from "./editCardFormDentist.js";
 
 export default class VisitDentist extends Visit {
@@ -50,6 +50,7 @@ export default class VisitDentist extends Visit {
   deleteCard() {
     this.delete = document.querySelector(`.delete-card-${this.id}`);
     this.delete.addEventListener("click", () => {
+      doctorAPIService.deleteCard(this.id);
       this.delete.parentNode.remove();
     });
     //item++;

@@ -1,6 +1,6 @@
 import Visit from "./visit.js";
 import { item } from "./main.js";
-
+import { doctorAPIService } from "./main.js";
 import EditCardFormTherapist from "./editCardFormTherapist.js";
 
 export default class VisitTherapist extends Visit {
