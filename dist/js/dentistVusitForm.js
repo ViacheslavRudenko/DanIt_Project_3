@@ -31,7 +31,7 @@ export default class DentistVisitForm extends VisitForm {
     this.parentElement = this.inputBox;
     this.inValidDate = this.createElement(
       `<div class="invalid-date-box">
-          <p class="invalid-date-box__text">Введите корректную дату последнего визита</p>
+          <p class="invalid-date-box__text">Введите корректную дату последнего визита в формате "03.2022"</p>
             </div>`
     );
     return this.inValidDate;

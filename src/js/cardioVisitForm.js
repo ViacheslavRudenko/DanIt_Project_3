@@ -62,7 +62,7 @@ export default class CardioVisitForm extends VisitForm {
     this.parentElement = this.inputBox;
     this.inValidPressure = this.createElement(
       `<div class="invalid-pressure-box">
-          <p class="invalid-pressure-box__text">Введите давление в числовом формате</p>
+          <p class="invalid-pressure-box__text">Введите давление в числовом формате в диапазоне от 50 до 160</p>
             </div>`
     );
     return this.inValidPressure;
