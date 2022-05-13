@@ -74,7 +74,6 @@ btnCreatVisit.addEventListener("click", () => {
   });
   let selectedDoctor;
   selectDoctorsList.addEventListener("click", (e) => {
-    // delete
     if (e.target.closest(".cardio-doctor")) {
       selectDoctorsList.style.display = "none";
       document.querySelector(".doctors-box").remove();
@@ -116,7 +115,6 @@ btnCreatVisit.addEventListener("click", () => {
           return true;
         } else {
           creatError.style.display = "none";
-          // return false;
         }
       });
       if (creatError.style.display == "none") {
@@ -125,14 +123,13 @@ btnCreatVisit.addEventListener("click", () => {
             invalidAge.style.display = "block";
             inputAge.style.borderColor = "red";
           } else {
-            therapistVisitModal.getInputData(); // тут нужно создавать обьект карточки
+            therapistVisitModal.getInputData();
             visitTherapist = new VisitTherapist();
             doctorAPIService.createCard(therapistVisitModal);
             document.querySelector(".modal").remove();
             invalidAge.style.display = "none";
             inputAge.style.borderColor = "black";
-            if (document.querySelector(".no-items"))
-              document.querySelector(".no-items").remove();
+            document.querySelector(".no-items").style.display = "none";
           }
         }
         if (selectedDoctor == "dentistVisitModal") {
@@ -146,8 +143,7 @@ btnCreatVisit.addEventListener("click", () => {
             document.querySelector(".modal").remove();
             invalidDate.style.display = "none";
             inputLastVisitDate.style.borderColor = "black";
-            if (document.querySelector(".no-items"))
-              document.querySelector(".no-items").remove();
+            document.querySelector(".no-items").style.display = "none";
           }
         }
         if (selectedDoctor == "cardioVisitModal") {
@@ -170,9 +166,7 @@ btnCreatVisit.addEventListener("click", () => {
             visitCardiologist = new VisitCardiologist();
             doctorAPIService.createCard(cardioVisitModal);
             document.querySelector(".modal").remove();
-
-            if (document.querySelector(".no-items"))
-              document.querySelector(".no-items").remove();
+            document.querySelector(".no-items").style.display = "none";
           }
         }
       }

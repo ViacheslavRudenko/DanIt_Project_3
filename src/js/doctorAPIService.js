@@ -8,6 +8,7 @@ import {
 import VisitCardiologist from "./visitCardiologist.js";
 import VisitDentist from "./visitDentist.js";
 import VisitTherapist from "./VisitTherapist.js";
+let checkAvailabilityCardsOnBord;
 export default class DoctorAPIService extends Component {
   createCard(obj) {
     fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -38,6 +39,7 @@ export default class DoctorAPIService extends Component {
         if (response.doctor == "Сardiologist") {
           visitCardiologist.render(response);
         }
+        checkAvailabilityCardsOnBord++;
       });
   }
   deleteCard(cardId) {
@@ -47,6 +49,9 @@ export default class DoctorAPIService extends Component {
         Authorization: `Bearer ${token}`,
       },
     });
+    checkAvailabilityCardsOnBord--;
+    if (checkAvailabilityCardsOnBord == 0)
+      document.querySelector(".no-items").style.display = "block";
   }
   getAllCreatedCards() {
     fetch(`https://ajax.test-danit.com/api/v2/cards`, {
@@ -57,11 +62,9 @@ export default class DoctorAPIService extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        checkAvailabilityCardsOnBord = response.length;
         response.forEach((elem) => {
-          if (document.querySelector(".no-items")) {
-            document.querySelector(".no-items").remove();
-          }
+          document.querySelector(".no-items").style.display = "none";
           if (elem.doctor == "Сardiologist") {
             let cardiologist = new VisitCardiologist();
             cardiologist.render(elem);
