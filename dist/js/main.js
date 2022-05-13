@@ -40,6 +40,7 @@ btnLogIn.addEventListener("click", (e) => {
 
 //------------- visit modal ------------------
 import VisitForm from "./visitForm.js";
+// import FiltersForm from "./filters.js";
 import CardioVisitForm from "./cardioVisitForm.js";
 import DentistVisitForm from "./dentistVusitForm.js";
 import TherapistVisitForm from "./therapistVisitForm.js";
