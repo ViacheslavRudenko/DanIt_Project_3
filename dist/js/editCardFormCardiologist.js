@@ -19,7 +19,7 @@ export default class EditCardFormCardiologist extends Form {
         <input type"text" class='edit-diseases-input'>
         <div class = 'edit-pressure'>Измените давление:</div>
         <input type"text" class='edit-pressure-input'>
-        <button type='submit' class='edit-card-btn btn'>Редактировать изменения</button>
+        <button type='submit' class='btn edit-card-btn'>Редактировать</button>
       `);
   }
   trackEditBtn(id) {
@@ -45,7 +45,8 @@ export default class EditCardFormCardiologist extends Form {
         this.editDescription,
         this.editAge,
         this.editDiseases,
-        this.editPressure
+        this.editPressure,
+        (this.doctor = "Cardiologist")
       );
       this.position = "beforeend";
       this.parentElement = document.querySelector(".main-content");
@@ -53,7 +54,7 @@ export default class EditCardFormCardiologist extends Form {
         .createElement(`<div data-item=${id}  class='visit-therapist-card visit-card-element'>
         <div class='delete-card delete-card-${id}'> X </div>
         <div class='name'>Имя: ${this.editName}</div>
-        <div class='visit-doctor'>Доктор: Cardiologist</div>  
+        <div class='visit-doctor'>Доктор: ${this.doctor}</div>  
         <div class='purpose'>Цель визита: ${this.editPurpose}</div>
         <div class='description'>Описание визита: ${this.editDescription}</div>
         <div class='lastVisit'>Возраст: ${this.editAge}</div>

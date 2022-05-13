@@ -2,45 +2,66 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  flex-direction: row;
 }
 .visit-card-element {
   position: relative;
   flex: 0 1 22%;
   min-width: 200px;
   margin: 10px 10px;
-  background-color: rgb(198, 228, 255);
+  background-color: rgb(49, 49, 49);
 }
-// .description,
-// .pressure,
-// .diseases,
-// .age,
-// .visit-number,
-// .visit-doctor,
-// .lastVisit,
-// .edit {
-//   display: none;
-// }
+.description,
+.pressure,
+.diseases,
+.age,
+.visit-number,
+.visit-doctor,
+.lastVisit,
+.edit,
+.purpose,
+.name,
+.editDiseases,
+.editPressure {
+  padding: 5px;
+  color: white;
+}
 .delete-card {
   position: absolute;
-  top: 0;
-  right: 0;
-
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: white;
   font-size: 25px;
   padding: 5px;
 }
 .edit-name,
 .edit-purpose,
 .edit-description,
-.edit-age {
+.edit-age,
+.edit-lastVisit,
+.edit-diseases,
+.edit-pressure {
   padding: 10px 0 10px 0px;
 }
 .edit-name-input,
 .edit-purpose-input,
 .edit-description-input,
-.edit-age-input {
+.edit-age-input,
+.edit-lastVisit-input,
+.edit-diseases-input,
+.edit-pressure-input {
   width: 100%;
 }
+.edit,
 .edit-card-btn {
-  margin: 0 auto;
   background-color: #000;
+  margin: 20px 0 0 0;
+}
+.btn {
+  display: block;
+  width: 100%;
+}
+.visit-card-element {
+  border-radius: 50px 0px 50px 0px / 25px 0px 25px 0px;
 }

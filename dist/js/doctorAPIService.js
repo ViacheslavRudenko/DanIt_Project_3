@@ -85,7 +85,7 @@ export default class DoctorAPIService extends Component {
       },
     });
   }
-  changeCard(cardId, name, purpose, description, age) {
+  changeCard(cardId, name, purpose, description, age, doctor) {
     fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
       method: "PUT",
       headers: {
@@ -97,6 +97,7 @@ export default class DoctorAPIService extends Component {
         description: description,
         name: name,
         purpose: purpose,
+        doctor: doctor,
       }),
     });
   }

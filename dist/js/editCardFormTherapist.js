@@ -15,7 +15,7 @@ export default class EditCardFormTherapist extends Form {
         <input type"text" class='edit-description-input'>
         <div class = 'edit-age'>Измените возраст:</div>
         <input type"text" class='edit-age-input'>
-        <button type='submit' class='edit-card-btn btn'>Редактировать изменения</button>
+        <button type='submit' class=' btn edit-card-btn'>Редактировать</button>
       `);
   }
   trackEditBtn(id) {
@@ -37,7 +37,8 @@ export default class EditCardFormTherapist extends Form {
         this.editName,
         this.editPurpose,
         this.editDescription,
-        this.editAge
+        this.editAge,
+        (this.doctor = "Therapist")
       );
       this.position = "beforeend";
       this.parentElement = document.querySelector(".main-content");
