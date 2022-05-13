@@ -3,12 +3,25 @@ export const btnLogIn = document.querySelector(".header-container__btn .btn");
 export const btnCreatVisit = document.querySelector(".creat-visit-btn");
 export const token = "d038cbe5-6cb1-4373-b513-864f37c31d87";
 
-export let visitDentist, visitCardiologist, visitTherapist;
+window.onload = function () {
+  if (localStorage.getItem("autoLogIn")) {
+    autoClick("modal");
+    const login = document.getElementById(`login`);
+    const password = document.getElementById(`password`);
+    login.value = localStorage.getItem("login");
+    password.value = localStorage.getItem("password");
+    autoClick("submit_value");
+  }
+};
 
+const autoClick = (id) => document.getElementById(`${id}`).click();
+
+export let visitDentist, visitCardiologist, visitTherapist;
 export let item = 0;
 
 import Component from "./component.js";
 import Form from "./form.js";
+
 import LogInForm from "./logIn.js";
 
 export let passObj = [

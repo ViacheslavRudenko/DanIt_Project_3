@@ -8,7 +8,7 @@ export default class LogInForm extends Form {
         <input
           autocomplete="off"
           type="text"
-          v-model="login"
+          id="login"
           v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(login) && emailBlured}"
           v-on:blur="loginBlured = true"
         />
@@ -24,6 +24,8 @@ export default class LogInForm extends Form {
       classNames: ["form-box__submit", "btn"],
       parentElement: this.formBoxItem,
       content: "Вход",
+      key: "id",
+      values: "submit_value",
     }));
 
   createInputPassword = () => {
@@ -33,9 +35,9 @@ export default class LogInForm extends Form {
       `<div class="forms-inputs mb-4">
         <span>Password</span>
         <input
+          id="password"
           autocomplete="off"
           type="password"
-          v-model="password"
           v-bind:class="{'form-control':true, 'is-invalid' : !validPassword(password) && passwordBlured}"
           v-on:blur="passwordBlured = true"
         />
@@ -49,10 +51,8 @@ export default class LogInForm extends Form {
   checkInput() {
     this.formSubmit.addEventListener("click", (e) => {
       e.preventDefault();
-      const login = this.formBoxItem.querySelector(`input[v-model="login"]`);
-      const password = this.formBoxItem.querySelector(
-        `input[v-model="password"]`
-      );
+      const login = document.getElementById(`login`);
+      const password = document.getElementById(`password`);
       const isLoginValid = login.value.length <= 6;
       const isPasswordValid = password.value.length < 8;
       this.checkValue(isLoginValid, login);
@@ -61,7 +61,6 @@ export default class LogInForm extends Form {
       if (this.dataValue) {
         btnLogIn.remove();
         btnCreatVisit.style.display = "block";
-        mainBox.innerHTML = `<div class='no-items'> No items have been added</div>`;
       }
       doctorAPIService.getAllCreatedCards();
     });
@@ -80,8 +79,12 @@ export default class LogInForm extends Form {
   checkValidData(login, password) {
     passObj.forEach((e) => {
       if (e.login === login.value && e.password === password.value) {
+        localStorage.setItem("login", login.value);
+        localStorage.setItem("password", password.value);
+        localStorage.setItem("autoLogIn", true);
         this.getFormCloseAction();
         this.dataValue = true;
+
         return this.dataValue;
       } else {
         this.errElem =
@@ -97,6 +100,7 @@ export default class LogInForm extends Form {
     this.createFormSubmit();
     this.createInputEmail();
     this.createInputPassword();
+
     this.checkInput();
   }
 }
