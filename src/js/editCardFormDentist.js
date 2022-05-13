@@ -15,7 +15,7 @@ export default class EditCardFormDentist extends Form {
         <input type"text" class='edit-description-input'>
         <div class = 'edit-lastVisit'>Измените дату последнего визита:</div>
         <input type"text" class='edit-lastVisit-input'>
-        <button type='submit' class='edit-card-btn btn'>Редактировать изменения</button>
+        <button type='submit' class='btn edit-card-btn'>Редактировать</button>
       `);
   }
   trackEditBtn(id) {
@@ -37,7 +37,8 @@ export default class EditCardFormDentist extends Form {
         this.editName,
         this.editPurpose,
         this.editDescription,
-        this.lastVisit
+        this.lastVisit,
+        (this.doctor = "Dentist")
       );
       this.position = "beforeend";
       this.parentElement = document.querySelector(".main-content");
@@ -48,7 +49,7 @@ export default class EditCardFormDentist extends Form {
         <div class='visit-doctor'>Доктор: Dentist</div>  
         <div class='purpose'>Цель визита: ${this.editPurpose}</div>
         <div class='description'>Описание визита: ${this.editDescription}</div>
-        <div class='lastVisit'>Возраст: ${this.lastVisit}</div>
+        <div class='lastVisit'>Последний визит: ${this.lastVisit}</div>
         <div class='visit-number'>Номер визита: ${id}</div>  
         </div>`);
       this.delete = document.querySelector(`.delete-card-${id}`);
