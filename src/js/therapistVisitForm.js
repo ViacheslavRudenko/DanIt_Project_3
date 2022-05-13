@@ -14,6 +14,17 @@ export default class TherapistVisitForm extends VisitForm {
     );
     return this.formInputAge;
   };
+
+  checkValueAge() {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.inValidAge = this.createElement(
+      `<div class="invalid-age-box">
+          <p class="invalid-age-box__text">Введите корректный возраст</p>
+            </div>`
+    );
+    return this.inValidAge;
+  }
   getInputData() {
     this.doctor = "Therapist";
     this.purpose = document.querySelector(".purpose-input").value;
@@ -31,5 +42,6 @@ export default class TherapistVisitForm extends VisitForm {
     this.createInputAge();
     this.createVisitSubmit();
     this.createCheckInputsValues();
+    this.checkValueAge();
   }
 }
