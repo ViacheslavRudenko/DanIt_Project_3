@@ -53,5 +53,5 @@ gulp.task("dev", () => {
   gulp.watch("./src/js/**/**.js", gulp.series("buildJS"));
   gulp.watch("./index.html").on("change", browserSync.reload);
   gulp.watch("./dist/css/style.min.css").on("change", browserSync.reload);
-  gulp.watch("./dist/js/scripts.min.js").on("change", browserSync.reload);
+  gulp.watch("./dist/js/**/**.js").on("change", browserSync.reload);
 });
