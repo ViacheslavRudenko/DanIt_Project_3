@@ -1,4 +1,7 @@
+import DoctorAPIService from "./doctorAPIService.js";
 import Form from "./form.js";
+import { doctorAPIService } from "./main.js";
+
 export default class EditCardFormCardiologist extends Form {
   createEditForm() {
     this.position = "beforeend";
@@ -24,7 +27,7 @@ export default class EditCardFormCardiologist extends Form {
     // this.parentElement = document.querySelector(
     //   `.visit-therapist-card[data-item="${item}"]`
     // );
-    console.log(id);
+
     this.editBtn = document.querySelector(".edit-card-btn");
     this.editBtn.addEventListener("click", () => {
       this.editName = document.querySelector(".edit-name-input").value;
@@ -47,10 +50,10 @@ export default class EditCardFormCardiologist extends Form {
       this.position = "beforeend";
       this.parentElement = document.querySelector(".main-content");
       this
-        .createElement(`<div data-item=${item}  class='visit-therapist-card visit-card-element'>
-        <div class='delete-card delete-card-${item}'> X </div>
+        .createElement(`<div data-item=${id}  class='visit-therapist-card visit-card-element'>
+        <div class='delete-card delete-card-${id}'> X </div>
         <div class='name'>Имя: ${this.editName}</div>
-        <div class='visit-doctor'>Доктор: Therapist</div>  
+        <div class='visit-doctor'>Доктор: Cardiologist</div>  
         <div class='purpose'>Цель визита: ${this.editPurpose}</div>
         <div class='description'>Описание визита: ${this.editDescription}</div>
         <div class='lastVisit'>Возраст: ${this.editAge}</div>
@@ -58,12 +61,12 @@ export default class EditCardFormCardiologist extends Form {
         <div class='editDiseases'>Перенесенные заболевания сердечно-сосудистой системы:: ${this.editDiseases}</div>
         <div class='editPressure'>Давление: ${this.editPressure}</div>
         </div>`);
-      this.delete = document.querySelector(`.delete-card-${item}`);
+      this.delete = document.querySelector(`.delete-card-${id}`);
       this.delete.addEventListener("click", () => {
         doctorAPIService.deleteCard(id);
         this.delete.parentNode.remove();
       });
-      item++;
+      // item++;
       document.querySelector(".form-data").remove();
     });
   }

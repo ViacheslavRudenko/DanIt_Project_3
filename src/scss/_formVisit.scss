@@ -1,3 +1,5 @@
+@import "variables";
+@import "mixins";
 .items-doctors {
   position: relative;
   cursor: pointer;
@@ -18,31 +20,34 @@
 .select-list-doctors {
   list-style: none;
   margin: 0;
-  padding-left: 10px;
   margin-top: 10px;
-  background: rgba(54, 163, 154, 0.842);
+  background: $mainColor;
   display: none;
   font-size: 25px;
+  border: none;
 
   .select-list-doctors__link {
     display: block;
     text-decoration: none;
-    color: black;
+    color: #fff;
     padding: 7px 0;
+    border: 2px solid transparent;
 
     &:hover {
-      color: #fff;
+      color: $mainColor;
+      background-color: #fff;
+      border: 2px solid black;
     }
   }
 }
 
 .doctors-box {
   text-align: center;
-  background-color: rgb(198, 255, 176);
+  background-color: #fff;
+  max-width: 500px;
+  min-width: 320px;
   position: absolute;
-  min-width: 350px;
-  top: 30%;
-  left: 40%;
+  top: 40%;
 }
 
 .check-inputs-value,

@@ -1,4 +1,7 @@
+import DoctorAPIService from "./doctorAPIService.js";
 import Form from "./form.js";
+import { doctorAPIService } from "./main.js";
+
 export default class EditCardFormDentist extends Form {
   createEditForm() {
     this.position = "beforeend";
@@ -39,8 +42,8 @@ export default class EditCardFormDentist extends Form {
       this.position = "beforeend";
       this.parentElement = document.querySelector(".main-content");
       this
-        .createElement(`<div data-item=${item}  class='visit-therapist-card visit-card-element'>
-        <div class='delete-card delete-card-${item}'> X </div>
+        .createElement(`<div data-item=${id}  class='visit-therapist-card visit-card-element'>
+        <div class='delete-card delete-card-${id}'> X </div>
         <div class='name'>Имя: ${this.editName}</div>
         <div class='visit-doctor'>Доктор: Dentist</div>  
         <div class='purpose'>Цель визита: ${this.editPurpose}</div>
@@ -48,12 +51,12 @@ export default class EditCardFormDentist extends Form {
         <div class='lastVisit'>Возраст: ${this.lastVisit}</div>
         <div class='visit-number'>Номер визита: ${id}</div>  
         </div>`);
-      this.delete = document.querySelector(`.delete-card-${item}`);
+      this.delete = document.querySelector(`.delete-card-${id}`);
       this.delete.addEventListener("click", () => {
         doctorAPIService.deleteCard(id);
         this.delete.parentNode.remove();
       });
-      item++;
+      // item++;
       document.querySelector(".form-data").remove();
     });
   }
