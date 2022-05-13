@@ -45,7 +45,10 @@
   left: 40%;
 }
 
-.check-inputs-value {
+.check-inputs-value,
+.invalid-date-box,
+.invalid-age-box,
+.invalid-pressure-box {
   padding-bottom: 10px;
   padding-left: 20px;
   display: none;

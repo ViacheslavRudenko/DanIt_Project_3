@@ -24,6 +24,19 @@ export default class DentistVisitForm extends VisitForm {
     this.name = document.querySelector(".name-input").value;
     this.lastVisit = document.querySelector(".last-visit-input").value;
   }
+
+  checkValueDate() {
+    this.lastVisit = document.querySelector(".last-visit-input");
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.inValidDate = this.createElement(
+      `<div class="invalid-date-box">
+          <p class="invalid-date-box__text">Введите корректную дату последнего визита</p>
+            </div>`
+    );
+    return this.inValidDate;
+  }
+
   render() {
     this.renderDefaultForm();
     this.createInputPurpose();
@@ -32,5 +45,6 @@ export default class DentistVisitForm extends VisitForm {
     this.createInputLastVisit();
     this.createVisitSubmit();
     this.createCheckInputsValues();
+    this.checkValueDate();
   }
 }

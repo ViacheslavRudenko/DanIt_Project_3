@@ -42,8 +42,31 @@ export default class CardioVisitForm extends VisitForm {
             />
           </div>`
     );
+
     return this.formInputAge;
   };
+
+  checkValueAge() {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.inValidAge = this.createElement(
+      `<div class="invalid-age-box">
+          <p class="invalid-age-box__text">Введите корректный возраст</p>
+            </div>`
+    );
+    return this.inValidAge;
+  }
+
+  checkValuePressure() {
+    this.position = "beforeend";
+    this.parentElement = this.inputBox;
+    this.inValidPressure = this.createElement(
+      `<div class="invalid-pressure-box">
+          <p class="invalid-pressure-box__text">Введите давление в числовом формате</p>
+            </div>`
+    );
+    return this.inValidPressure;
+  }
 
   getInputData() {
     this.doctor = "Сardiologist";
@@ -67,5 +90,7 @@ export default class CardioVisitForm extends VisitForm {
     this.createInputAge();
     this.createVisitSubmit();
     this.createCheckInputsValues();
+    this.checkValueAge();
+    this.checkValuePressure();
   }
 }

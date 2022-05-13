@@ -1,22 +1,6 @@
 import Form from "./form.js";
 
 export default class VisitForm extends Form {
-  createDoctorsSelect = () => {
-    this.position = "beforeend";
-    this.parentElement = this.inputBox;
-    this.formInputDoctors = this.createElement(
-      `<div class="forms-inputs mb-4">
-          <div class="items-doctors">Выберите врача:</div>
-          <ul class="select-list-doctors">
-            <a class="select-list-doctors__link" href="#"><li class="cardio-doctor">Кардиолог</li></a>
-            <a class="select-list-doctors__link" href="#"><li class="dentist">Стоматолог</li></a>
-            <a class="select-list-doctors__link" href="#"><li class="therapist">Терапевт</li></a>
-          </ul>
-        </div>`
-    );
-    return this.formInputDoctors;
-  };
-
   createVisitSubmit = () =>
     (this.formSubmit = this.createElement({
       tagName: "button",
@@ -83,6 +67,5 @@ export default class VisitForm extends Form {
 
   render() {
     this.renderDefaultForm();
-    this.createDoctorsSelect();
   }
 }

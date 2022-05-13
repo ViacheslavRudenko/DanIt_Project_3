@@ -49,7 +49,7 @@ export default class VisitTherapist extends Visit {
       doctorAPIService.deleteCard(this.id);
       this.delete.parentNode.remove();
     });
-    item++;
+    // item++;
   }
   editCard() {
     this.edit = document.querySelector(`.edit-card-${item}`);
