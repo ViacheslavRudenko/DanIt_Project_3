@@ -44,9 +44,9 @@ export default class EditCardFormCardiologist extends Form {
         this.editPurpose,
         this.editDescription,
         this.editAge,
+        (this.doctor = "Сardiologist"),
         this.editDiseases,
-        this.editPressure,
-        (this.doctor = "Cardiologist")
+        this.editPressure
       );
       this.position = "beforeend";
       this.parentElement = document.querySelector(".main-content");
