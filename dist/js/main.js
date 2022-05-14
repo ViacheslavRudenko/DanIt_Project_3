@@ -182,5 +182,6 @@ import VisitTherapist from "./VisitTherapist.js";
 import EditCardFormDentist from "./editCardFormDentist.js";
 import EditCardFormTherapist from "./editCardFormTherapist.js";
 import EditCardFormCardiologist from "./editCardFormCardiologist.js";
+import Filter from "./filter.js";
 
 export const doctorAPIService = new DoctorAPIService();

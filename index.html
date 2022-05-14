@@ -351,9 +351,52 @@
         </div>
       </div>
     </header>
-    <main class="main">
-      <div class="main-content card section section-width"><div class="no-items">No items have been added</div>
-    </main>
+    <div class="main-box">
+      <div class="section-width">
+        <aside>
+          <div class="filter">
+            <button class="btn btn__filter">Фильтр</button>
+            <div class="filter-box">
+              <div class="filter__doctor doctor">
+                <legend>Доктор:</legend>
+
+                <div class="doctor__name">
+                  <input
+                    class="custom-checkbox"
+                    type="checkbox"
+                    id="Сardiologist"
+                    name="doctor-name"
+                  />
+                  <label for="Сardiologist">Сardiologist</label>
+
+                  <input
+                    class="custom-checkbox"
+                    type="checkbox"
+                    id="Dentist"
+                    name="doctor-name"
+                  />
+                  <label for="Dentist">Dentist</label>
+
+                  <input
+                    class="custom-checkbox"
+                    type="checkbox"
+                    id="Therapist"
+                    name="doctor-name"
+                  />
+                  <label for="Therapist">Therapist</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <main class="main">
+          <div class="main-content card section">
+            <div class="no-items">No items have been added</div>
+          </div>
+        </main>
+      </div>
+    </div>
+
     <script type="module" src="./dist/js/main.js"></script>
     <!-- <script type="module" src="./src/js/visit-modal-form.js"></script> -->
   </body>
