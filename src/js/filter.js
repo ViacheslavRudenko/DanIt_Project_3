@@ -11,11 +11,18 @@ export default class Filter {
     const radioBtns = document.querySelectorAll('input[name="doctor-name"]');
 
     doctorName.addEventListener("click", function (e) {
-      //e.preventDefault();
       for (const radioButton of radioBtns) {
         if (radioButton.checked) {
           let selectedSize = radioButton.id;
-          console.log(selectedSize);
+          const arrNotFilter = document.querySelectorAll(
+            `div[data-doctor="${selectedSize}"]`
+          );
+          Array.from(arrNotFilter).map((e) => {
+            e.style.display = "block";
+          });
+        } else {
+          let selectedSize = radioButton.id;
+
           const arrNotFilter = document.querySelectorAll(
             `div[data-doctor="${selectedSize}"]`
           );
@@ -23,16 +30,6 @@ export default class Filter {
             e.style.display = "none";
           });
         }
-        // else {
-        //   let selectedSize = radioButton.id;
-        //   console.log(selectedSize);
-        //   const arrNotFilter = document.querySelectorAll(
-        //     `div[data-doctor="${selectedSize}"]`
-        //   );
-        //   Array.from(arrNotFilter).map((e) => {
-        //     e.style.display = "none";
-        //   });
-        // }
       }
     });
   }
