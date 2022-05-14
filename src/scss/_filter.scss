@@ -1,0 +1,19 @@
+.filter {
+  padding: 20px;
+  background-color: #fff;
+  .btn {
+    background-color: #000;
+    max-width: 400px;
+  }
+  .filter-box {
+    padding-top: 20px;
+    display: none;
+  }
+}
+.doctor {
+  &__name {
+    padding: 10px;
+    display: inline-grid;
+    line-height: 1.5;
+  }
+}

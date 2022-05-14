@@ -7,11 +7,6 @@ body {
   min-width: 320px;
 }
 
-.main {
-  background-image: url(../images/doctor-with-medical-mask-background-vector.jpeg);
-  @include img-position;
-  height: 100vh; //тимчасово
-}
 .section-width {
   max-width: $container-max-widths;
 }
@@ -30,5 +25,7 @@ body {
 @import "form";
 @import "formLogIn";
 @import "mainContent";
+@import "checkbox";
+@import "filter";
 @import "media-481";
 @import "media-993";
