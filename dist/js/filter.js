@@ -34,9 +34,30 @@ export default class Filter {
     });
   }
 
+  showPacient() {
+    this.namePacient = document.querySelector(".name-pacient__input-search");
+
+    this.namePacient.addEventListener("input", () => {
+      let pacientNameStr = this.namePacient.value;
+      const allNamesPacient = document.querySelectorAll(".name");
+      Array.from(allNamesPacient).forEach((pacient) => {
+        if (
+          pacient.innerText
+            .toLowerCase()
+            .includes(pacientNameStr.toLowerCase(), 5)
+        ) {
+          pacient.parentElement.style.display = "block";
+        } else {
+          pacient.parentElement.style.display = "none";
+        }
+      });
+    });
+  }
+
   render() {
     this.showFilter();
     this.showDoctor();
+    this.showPacient();
   }
 }
 const filter = new Filter();
