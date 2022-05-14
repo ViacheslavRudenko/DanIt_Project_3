@@ -12,11 +12,16 @@
 
     .filter {
       width: 200px;
+      // height: calc(100vh - 126.66px);
       .filter-box {
         display: block;
       }
       .btn {
         display: none;
+      }
+
+      .name-pacient__input-search {
+        width: 100%;
       }
     }
   }

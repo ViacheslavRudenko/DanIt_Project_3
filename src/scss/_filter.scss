@@ -1,6 +1,7 @@
 .filter {
   padding: 20px;
   background-color: #fff;
+
   .btn {
     background-color: #000;
     max-width: 400px;
@@ -8,6 +9,15 @@
   .filter-box {
     padding-top: 20px;
     display: none;
+  }
+
+  .name-pacient__input-search {
+    margin-top: 5px;
+    box-sizing: border-box;
+
+    &:focus {
+      border: 3px solid #000;
+    }
   }
 }
 .doctor {
