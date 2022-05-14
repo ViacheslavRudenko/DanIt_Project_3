@@ -4,23 +4,28 @@
 
   .main-box {
     background-image: url(../images/doctor-with-medical-mask-background-vector.jpeg);
+    background-attachment: fixed;
     @include img-position;
-    height: calc(100vh - 126.66px);
     display: flex;
     flex-direction: row;
     justify-content: center;
-
+    height: calc(100vh - 126.66px);
     .filter {
       width: 200px;
+      height: 100%;
       .filter-box {
         display: block;
       }
-      .btn {
+      .btn__filter--main {
         display: none;
       }
     }
   }
   .section-width {
     display: flex;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
   }
 }

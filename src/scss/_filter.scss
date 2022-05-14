@@ -4,6 +4,9 @@
   .btn {
     background-color: #000;
     max-width: 400px;
+    &:last-of-type {
+      margin-top: 20px;
+    }
   }
   .filter-box {
     padding-top: 20px;
