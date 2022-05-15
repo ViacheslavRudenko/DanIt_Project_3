@@ -53,7 +53,6 @@ export default class VisitDentist extends Visit {
       doctorAPIService.deleteCard(this.id);
       this.delete.parentNode.remove();
     });
-    //item++;
   }
   editCard() {
     this.edit = document.querySelector(`.edit-card-${this.id}`);

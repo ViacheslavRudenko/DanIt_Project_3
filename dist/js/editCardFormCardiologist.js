@@ -23,11 +23,6 @@ export default class EditCardFormCardiologist extends Form {
       `);
   }
   trackEditBtn(id) {
-    // this.position = "beforeend";
-    // this.parentElement = document.querySelector(
-    //   `.visit-therapist-card[data-item="${item}"]`
-    // );
-
     this.editBtn = document.querySelector(".edit-card-btn");
     this.editBtn.addEventListener("click", () => {
       this.editName = document.querySelector(".edit-name-input").value;
@@ -67,7 +62,6 @@ export default class EditCardFormCardiologist extends Form {
         doctorAPIService.deleteCard(id);
         this.delete.parentNode.remove();
       });
-      // item++;
       document.querySelector(".form-data").remove();
     });
   }

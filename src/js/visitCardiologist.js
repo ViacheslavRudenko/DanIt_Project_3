@@ -61,7 +61,6 @@ export default class VisitCardiologist extends Visit {
       doctorAPIService.deleteCard(this.id);
       this.delete.parentNode.remove();
     });
-    //item++;
   }
   editCard() {
     this.edit = document.querySelector(`.edit-card-${this.id}`);
@@ -69,7 +68,6 @@ export default class VisitCardiologist extends Visit {
       this.edit.parentNode.remove();
       const editCardForm = new EditCardFormCardiologist();
       editCardForm.render(this.id);
-      console.log(1); // тут редактируем изминения
     });
   }
   render(response) {
