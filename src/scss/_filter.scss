@@ -1,4 +1,6 @@
 .filter {
+  position: sticky;
+  top: 0;
   padding: 20px;
   background-color: #fff;
   &__id {
