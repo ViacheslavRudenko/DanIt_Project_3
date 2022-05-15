@@ -17,7 +17,7 @@ export default class VisitTherapist extends Visit {
     this.position = "beforeend";
     this.parentElement = document.querySelector(".main-content");
     this
-      .createElement(`<div data-item=${this.id} data-doctor=${this.doctor}  class='visit-therapist-card card-body visit-card-element'>
+      .createElement(`<div data-item=${this.id} data-doctor=${this.doctor}   class=' visit-therapist-card card-body visit-card-element'>
       <div   class='delete-card delete-card-${this.id}'> X </div>
       <div class='name'>Имя: ${this.name}</div>
       <div class='visit-doctor'>Доктор: ${this.doctor}</div>  
