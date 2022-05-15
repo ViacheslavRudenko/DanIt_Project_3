@@ -351,12 +351,12 @@
         </div>
       </div>
     </header>
-    <div class="main-box">
-      <div class="section-width">
+    <main class="main-box">
+      <div class="section-width grid">
         <aside>
           <div class="filter">
-            <button class="btn btn__filter">Фильтр</button>
-            <div class="filter-box">
+            <button class="btn btn__filter--main">Фильтр</button>
+            <form class="filter-box">
               <div class="filter__doctor doctor">
                 <legend>Доктор:</legend>
 
@@ -366,6 +366,7 @@
                     type="checkbox"
                     id="Сardiologist"
                     name="doctor-name"
+                    checked="checked"
                   />
                   <label for="Сardiologist">Сardiologist</label>
 
@@ -374,6 +375,7 @@
                     type="checkbox"
                     id="Dentist"
                     name="doctor-name"
+                    checked="checked"
                   />
                   <label for="Dentist">Dentist</label>
 
@@ -382,6 +384,7 @@
                     type="checkbox"
                     id="Therapist"
                     name="doctor-name"
+                    checked="checked"
                   />
                   <label for="Therapist">Therapist</label>
                 </div>
@@ -396,16 +399,19 @@
                   id="Name"
                 />
               </div>
-            </div>
+              <button type="button" class="btn btn__filter" id="reset">
+                Сброс
+              </button>
+            </form>
           </div>
         </aside>
-        <main class="main">
+        <section class="main">
           <div class="main-content card section">
             <div class="no-items">No items have been added</div>
           </div>
-        </main>
+        </section>
       </div>
-    </div>
+    </main>
 
     <script type="module" src="./dist/js/main.js"></script>
     <!-- <script type="module" src="./src/js/visit-modal-form.js"></script> -->
