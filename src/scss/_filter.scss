@@ -1,6 +1,14 @@
 .filter {
+  position: sticky;
+  top: 0;
   padding: 20px;
   background-color: #fff;
+  &__id {
+    padding-top: 10px;
+    &__title {
+      padding-bottom: 10px;
+    }
+  }
 
   .btn {
     background-color: #000;
