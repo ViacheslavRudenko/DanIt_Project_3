@@ -20,6 +20,9 @@
   .filter-box {
     padding-top: 20px;
     display: none;
+    &--grid {
+      display: block;
+    }
   }
 
   .name-pacient__input-search {

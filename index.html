@@ -357,65 +357,70 @@
           <div class="filter">
             <button class="btn btn__filter--main">Фильтр</button>
             <form class="filter-box">
-              <div class="filter__doctor doctor">
-                <legend>Доктор:</legend>
+              <div class="filter-box--grid">
+                <div class="filter-box__item">
+                  <div class="filter__doctor doctor">
+                    <legend>Доктор:</legend>
 
-                <div class="doctor__name">
-                  <input
-                    class="custom-checkbox"
-                    type="checkbox"
-                    id="Сardiologist"
-                    name="doctor-name"
-                    checked="checked"
-                  />
-                  <label for="Сardiologist">Сardiologist</label>
+                    <div class="doctor__name">
+                      <input
+                        class="custom-checkbox"
+                        type="checkbox"
+                        id="Сardiologist"
+                        name="doctor-name"
+                        checked="checked"
+                      />
+                      <label for="Сardiologist">Сardiologist</label>
 
-                  <input
-                    class="custom-checkbox"
-                    type="checkbox"
-                    id="Dentist"
-                    name="doctor-name"
-                    checked="checked"
-                  />
-                  <label for="Dentist">Dentist</label>
+                      <input
+                        class="custom-checkbox"
+                        type="checkbox"
+                        id="Dentist"
+                        name="doctor-name"
+                        checked="checked"
+                      />
+                      <label for="Dentist">Dentist</label>
 
-                  <input
-                    class="custom-checkbox"
-                    type="checkbox"
-                    id="Therapist"
-                    name="doctor-name"
-                    checked="checked"
-                  />
-                  <label for="Therapist">Therapist</label>
+                      <input
+                        class="custom-checkbox"
+                        type="checkbox"
+                        id="Therapist"
+                        name="doctor-name"
+                        checked="checked"
+                      />
+                      <label for="Therapist">Therapist</label>
+                    </div>
+                  </div>
+
+                  <div class="filter__name-pacient name-pacient">
+                    <legend>Введите имя пациента:</legend>
+                    <!-- <label for="Name">Введите имя пациента</label> -->
+                    <input
+                      type="text"
+                      class="name-pacient__input-search"
+                      id="Name"
+                    />
+                  </div>
+                  <button
+                    disabled="true"
+                    type="button"
+                    class="btn btn__filter"
+                    id="reset"
+                  >
+                    Сброс
+                  </button>
                 </div>
-              </div>
-
-              <div class="filter__name-pacient name-pacient">
-                <legend>Введите имя пациента:</legend>
-                <!-- <label for="Name">Введите имя пациента</label> -->
-                <input
-                  type="text"
-                  class="name-pacient__input-search"
-                  id="Name"
-                />
-              </div>
-
-              <button
-                disabled="true"
-                type="button"
-                class="btn btn__filter"
-                id="reset"
-              >
-                Сброс
-              </button>
-              <div class="filter__id">
-                <p class="filter__id__title">Cортировка по приоритету:</p>
-                <button class="filter__id--lower btn btn__filter" id="low">
-                  Сортировать по убыванию
-                </button>
-                <button class="filter__id--grow btn btn__filter" id="grow">
-                  Сортировка по возрастанию
-                </button>
+                <div class="filter-box__item">
+                  <div class="filter__id">
+                    <p class="filter__id__title">Cортировка по приоритету:</p>
+                    <button class="filter__id--lower btn btn__filter" id="low">
+                      Сортировать по убыванию
+                    </button>
+                    <button class="filter__id--grow btn btn__filter" id="grow">
+                      Сортировка по возрастанию
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

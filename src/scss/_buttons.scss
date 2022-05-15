@@ -11,10 +11,14 @@
   box-sizing: border-box;
 
   &:hover {
+    color: white;
+  }
+
+  &:hover:not([disabled]) {
     color: $mainColor;
   }
 
-  &:active {
+  &:active:not([disabled]) {
     box-sizing: border-box;
     border: 2px solid $mainColor;
     box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1),

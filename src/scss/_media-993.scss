@@ -14,6 +14,9 @@
       height: calc(100vh - 126.66px);
       .filter-box {
         display: block;
+        &--grid {
+          display: block;
+        }
       }
       .btn__filter--main {
         display: none;
