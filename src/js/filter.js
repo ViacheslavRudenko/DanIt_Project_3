@@ -4,7 +4,6 @@ export default class Filter {
     const btnFilter = document.querySelector(".btn__filter--main");
     btnFilter.addEventListener("click", () => {
       const filterBox = document.querySelector(".filter-box");
-
       filterBox.style.display = "block";
     });
   }
