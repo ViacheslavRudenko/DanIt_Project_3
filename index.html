@@ -399,9 +399,24 @@
                   id="Name"
                 />
               </div>
-              <button type="button" class="btn btn__filter" id="reset">
+
+              <button
+                disabled="true"
+                type="button"
+                class="btn btn__filter"
+                id="reset"
+              >
                 Сброс
               </button>
+              <div class="filter__id">
+                <p class="filter__id__title">Cортировка по приоритету:</p>
+                <button class="filter__id--lower btn btn__filter" id="low">
+                  Сортировать по убыванию
+                </button>
+                <button class="filter__id--grow btn btn__filter" id="grow">
+                  Сортировка по возрастанию
+                </button>
+              </div>
             </form>
           </div>
         </aside>
