@@ -8,6 +8,7 @@ import {
 import VisitCardiologist from "./visitCardiologist.js";
 import VisitDentist from "./visitDentist.js";
 import VisitTherapist from "./VisitTherapist.js";
+
 let checkAvailabilityCardsOnBord;
 export default class DoctorAPIService extends Component {
   createCard(obj) {
@@ -77,6 +78,8 @@ export default class DoctorAPIService extends Component {
             let therapist = new VisitTherapist();
             therapist.render(elem);
           }
+          const dragDrop = new DragDrop();
+          dragDrop.render();
         });
       });
   }
@@ -105,3 +108,4 @@ export default class DoctorAPIService extends Component {
     });
   }
 }
+import DragDrop from "./dragDrop.js";

@@ -19,6 +19,9 @@ body {
   font-family: $fontLato;
   padding: 20px;
 }
+.selected {
+  opacity: 0.6;
+}
 
 @import "buttons";
 @import "header";
